@@ -15,10 +15,10 @@ class Shows extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->bigIncrements('show_id');
-            $table->tinyInteger('screen_symbol');
+            $table->tinyInteger('screen_symbol')->comment('0:スクリーンA, 1:スクリーンB');
             $table->datetime('start_datetime');
             $table->datetime('end_datetime');
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->comment('0:無効(非表示), 1:有効');
 
             // 外部キー群
             $table->integer('movie_id')->unsigned();
