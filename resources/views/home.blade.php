@@ -1,3 +1,10 @@
+@extends('template/template')
+
+@section('title', 'ホーム')
+@section('css', '/hal_cinema_2/public/css/home.css')
+@include('template/header')
+
+@section('content')
 <div id="container">
     <div id="slider">
         <section class="s-wrap">
@@ -67,3 +74,4 @@
         </div>
     </section>
 </div>
+@endsection
