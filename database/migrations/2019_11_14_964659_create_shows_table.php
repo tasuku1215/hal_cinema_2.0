@@ -21,10 +21,10 @@ class CreateShowsTable extends Migration
             $table->tinyInteger('status')->comment('0:無効(非表示), 1:有効');
 
             // 外部キー群
-            $table->integer('movie_id')->unsigned();
+            $table->bigInteger('movie_id')->unsigned();
             $table->foreign('movie_id')->references('movie_id')->on('movies');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->bigInteger('admin_id')->unsigned();
+            $table->foreign('admin_id')->references('admin_id')->on('users');
 
             $table->timestamps();
         });
