@@ -1,8 +1,8 @@
-@extends('template/template')
+@extends('tmp/body')
 
 @section('title', 'ホーム')
 @section('css', '/hal_cinema_2/public/css/home.css')
-@include('template/header')
+@include('tmp/header')
 
 @section('content')
 <div id="container">
