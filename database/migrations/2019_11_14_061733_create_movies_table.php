@@ -20,6 +20,7 @@ class CreateMoviesTable extends Migration
             $table->string('directer')->comment('監督');
             $table->string('actor')->comment('主演');
             $table->dateTime('aired')->comment('放映年');
+            $table->string('catchcopy')->nullable()->comment('キャッチコピー');
             $table->string('synopsis')->nullable()->comment('あらすじ');
             $table->string('img_path')->comment('画像パス');
             $table->string('url')->nullable()->comment('公式URL');
