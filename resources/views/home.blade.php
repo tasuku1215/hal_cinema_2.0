@@ -9,7 +9,7 @@
     <div id="slider">
         <section class="s-wrap">
             <div class="box">
-                <img src="./img/thesha.jpg" alt="topScroll" class="slide-item">
+                <!-- <img src="./img/thesha.jpg" alt="topScroll" class="slide-item"> -->
             </div>
         </section>
     </div>

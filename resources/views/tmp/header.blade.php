@@ -8,9 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Monoton|Sacramento|Tangerine&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="/driverBox/public/css/style.css" type="text/css">
-<link rel="stylesheet" href="/driverBox/public/css/header.css" type="text/css">
-<link rel="stylesheet" href="/driverBox/public/css/footer.css" type="text/css">
+<link rel="stylesheet" href="/hal_cinema_2/public/css/header.css" type="text/css">
+<link rel="stylesheet" href="/hal_cinema_2/public/css/footer.css" type="text/css">
 
 <link rel="stylesheet" href="@yield('css')" type="text/css">
 
