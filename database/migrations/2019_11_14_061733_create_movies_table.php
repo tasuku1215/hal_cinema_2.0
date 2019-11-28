@@ -16,10 +16,10 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->bigIncrements('movie_id')->comment('映画ID');
             $table->string('movie_title')->comment('タイトル');
-            $table->dateTime('screen_time')->comment('上映時間');
+            $table->integer('screen_time')->comment('上映時間');
             $table->string('directer')->comment('監督');
             $table->string('actor')->comment('主演');
-            $table->dateTime('aired')->comment('放映年');
+            $table->integer('aired')->comment('放映年');
             $table->string('catchcopy')->nullable()->comment('キャッチコピー');
             $table->string('synopsis')->nullable()->comment('あらすじ');
             $table->string('img_path')->comment('画像パス');
