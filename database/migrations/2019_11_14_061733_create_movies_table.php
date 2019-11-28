@@ -24,6 +24,7 @@ class CreateMoviesTable extends Migration
             $table->string('synopsis')->nullable()->comment('あらすじ');
             $table->string('img_path')->comment('画像パス');
             $table->string('url')->nullable()->comment('公式URL');
+            $table->timestamps();
         });
     }
 
