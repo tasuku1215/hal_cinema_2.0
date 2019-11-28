@@ -23,6 +23,8 @@ class MoviesTableSeeder extends Seeder
                 'synopsis' => '王の覚醒。 世界の終焉が始まる。',
                 'img_path' => 'movie1.jpg',
                 'url' => 'https://godzilla-movie.jp/',
+                'created_at' => new DateTime(),
+                'updated_at' => new DateTime(),
             ],
         ]);
     }
