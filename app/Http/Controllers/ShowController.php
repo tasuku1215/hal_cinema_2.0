@@ -19,6 +19,12 @@ class ShowController extends Controller
     }
 
     /**
+     * 本番環境でするべきこと
+     *  * ログインのsessionが無い場合の分岐
+     *  * sessionのadmin_id参照
+     */
+
+    /**
      * 追加したいこと
      *  * スケジュール編集操作をした後、戻るリスト画面の状態を保持
      *  * スケジュール登録画面をTOPに内包し、ボタンを押すとハンバーガーメニューみたいに出てくる(一覧を見ながら操作したい)
@@ -29,7 +35,7 @@ class ShowController extends Controller
      *  * 当日・1週間・1ヶ月一覧表示をajaxで切り替える(それらの切り替えをプルダウンメニュー化)
      *  * ログイン中のアカウント情報の表示
      *  * 一覧画面にてレコードを複数選択で削除
-     *  * Eloquent導入による論理削除等の簡略化
+     *  * Eloquent導入による論理削除等の簡略化、モデル実装による値の表現方法の統一
      */
 
     /**
@@ -323,6 +329,8 @@ class ShowController extends Controller
     public function updatePerOnce(Request $request, int $showId)
     {
         $assign = [];
+        // $session = $request->session()->all();
+        $session['admin_id'] = 1;
 
         $query = $this->showsTable
             ->where('show_id', $showId)
@@ -331,7 +339,8 @@ class ShowController extends Controller
                 'start_datetime' => $this->input['start_datetime'],
                 'end_datetime' => $this->input['end_datetime'],
                 'cleaning_time' => $this->input['cleaning_time'],
-                'movie_id' => $this->input['movie_id']
+                'movie_id' => $this->input['movie_id'],
+                'admin_id' => $session['admin_id']
             ]);
         $updatedShow = $this->showsTable->where('show_id', $showId)->first();
 
@@ -368,9 +377,15 @@ class ShowController extends Controller
      */
     public function deletePerOnce(Request $request, int $showId)
     {
+        // $session = $request->session()->all();
+        $session['admin_id'] = 1;
+
         $query = $this->showsTable
             ->where('show_id', $showId)
-            ->update(['status' => 0]);  // 論理削除
+            ->update([
+                'status' => 0,
+                'admin_id' => $session['admin_id']
+            ]);  // 論理削除
 
         $deletedShow = $this->showsTable->where('show_id', $showId)->first();
 
