@@ -18,12 +18,12 @@
         <div id="gloval-nav">
             <nav>
                 <ul id="navigation">
-                    <li><a href="index.html">トップページ</a></li>
-                    <li><a href="roadshow.html">上映中作品</a></li>
-                    <li><a href="nextRoadshow.html">公開予定作品</a></li>
-                    <li><a href="survey.html">アンケート</a></li>
-                    <li><a href="access.html">アクセス</a></li>
-                    <li><a href="contact.html">お問い合わせ</a></li>
+                    <li><a href="/">トップページ</a></li>
+                    <li><a href="/roadshow">上映中作品</a></li>
+                    <li><a href="/nextRoadshow">公開予定作品</a></li>
+                    <li><a href="/survey">アンケート</a></li>
+                    <li><a href="/access">アクセス</a></li>
+                    <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
             </nav>
         </div>
@@ -32,7 +32,8 @@
         @yield('content')
     </div>
     <footer>
-        <!-- 省略 -->
+        <div class="foot"></div>
+        <p>copyright &copy; 2019 HAL Cinema</p>
     </footer>
 </body>
 
