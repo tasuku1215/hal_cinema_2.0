@@ -1,6 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
+//ホーム画面へ
 Route::get("/", "HomeController@showHome");
+
+//ログイン・ログアウト
+Route::get('/admin', 'LoginController@goLogin');
+Route::post('/admin/user/login', 'LoginController@login');
 
 // 上映スケジュール関連
 Route::get('/admin/show/add/input', 'ShowController@goAddPerOnce');
