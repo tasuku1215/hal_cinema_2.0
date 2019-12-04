@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
+    public function goLogin()
+    {
+        return view("/admin/user/login");
+    }
+
     public function login(Request $request)
     {
         $login_id = $request->input('id');
@@ -43,6 +48,6 @@ class LoginController extends Controller
         $session = $request->session();
         $session->flush();
         $session->regenerate();
-        return redirect("/");
+        return redirect("/admin/user/goLogin");
     }
 }
