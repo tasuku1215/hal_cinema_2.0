@@ -9,6 +9,8 @@ Route::get("/", "HomeController@showHome");
 Route::get('/admin', 'LoginController@goLogin');
 Route::post('/admin/user/login', 'LoginController@login');
 
+Route::get('/admin/user/goTop', 'LoginController@goTop');
+
 // 上映スケジュール関連
 Route::get('/admin/show/add/input', 'ShowController@goAddPerOnce');
 Route::post('/admin/show/add/confirm', 'ShowController@goAddConfirmPerOnce');

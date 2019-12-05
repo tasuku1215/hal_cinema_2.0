@@ -19,28 +19,16 @@ class LoginController extends Controller
         $password = $request->input('password');
         $admins = DB::table('admins')
             ->where('login_id', $login_id)
-            ->first();
+            ->where('password', $password)
+            ->get();
 
         $validationMsgs = [];
         $id = "";
-        if (!empty($admins)) {
-            if (password_verify($password, $admins->password)) {
-                $id = $admins->user_id;
-                $status = "success";
-            } else {
-                $status = "error";
-                $validationMsgs['password'] = "パスワードが間違ってます。";
-            }
+        if (empty($admins)) {
+            $validationMsgs['error'] = "IDもしくはパウワードが間違ってます。";
         } else {
-            $status = "error";
-            $validationMsgs['id'] = "IDが間違ってます。";
+            return redirect("/admin/user/goTop");
         }
-
-        return response()->json([
-            'id' => $id,
-            'status' => $status,
-            'validationMsgs' => $validationMsgs
-        ]);
     }
 
     public function logout(Request $request)

@@ -23,12 +23,14 @@
         <article>
             <h2>管理者画面ログイン</h2>
             <div>
-                <p>ログインID：</p>
-                <input type="text" name="login_id" id="login_id">
-                <br>
-                <p>パスワード：</p>
-                <input type="password" name="password" id="password">
-                <button type="submit" name="submit" id="btn">ログイン</button>
+                <form action="/admin/user/login" method="post">
+                    <p>ログインID：</p>
+                    <input type="text" name="login_id" id="login_id">
+                    <br>
+                    <p>パスワード：</p>
+                    <input type="password" name="password" id="password">
+                    <button type="submit" name="submit" id="btn">ログイン</button>
+                </form>
             </div>
         </article>
     </main>
