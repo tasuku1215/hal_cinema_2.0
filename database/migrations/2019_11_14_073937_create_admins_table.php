@@ -18,7 +18,9 @@ class CreateAdminsTable extends Migration
             $table->string('login_id');
             $table->string('name');
             $table->string('password');
+            $table->integer('auth');
             $table->timestamps();
+            $table->integer('status');
         });
     }
 
