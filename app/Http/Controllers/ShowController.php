@@ -20,6 +20,7 @@ class ShowController extends Controller
 
     /**
      * 本番環境でするべきこと
+     *  * 一般ユーザー向けページ処理を追加
      *  * ログインのsessionが無い場合の分岐
      *  * sessionのadmin_id参照
      */
@@ -65,10 +66,10 @@ class ShowController extends Controller
         $valiMsgs = [];
 
         // 入力された映画タイトルでmoviesを検索。 映画タイトルはajaxによる補完有
+        $movie = $this->moviesTable->where('movie_title', $this->input['movie_title'])->first();
         $startDt = implode(explode('T', $this->input['start_datetime']), ' ').':00';
         $startDtObj = new \Datetime($startDt);
 
-        $movie = $this->moviesTable->where('movie_title', $this->input['movie_title'])->first();
         $cleaningAllTime = $this->input['cleaning_time'] * 2;  // 上映前後2回分
 
         $hour = floor($movie->screen_time / 60) + floor($cleaningAllTime / 60);
@@ -79,9 +80,10 @@ class ShowController extends Controller
         $query = $this->showsTable
             ->where('screen_symbol', $this->input['screen_symbol']) // 同じスクリーンで
             ->where(function ($q) use ($startDt, $endDt) {
-                $q->whereBetween('start_datetime', [$startDt, $endDt])    // 上映+全掃除時間が被っていないか
-                    ->orWhereBetween('end_datetime', [$startDt, $endDt]);   // を開始と終了の両方をORでチェック
-            });
+                    $q->whereBetween('start_datetime', [$startDt, $endDt])    // 上映+全掃除時間が被っていないか
+                        ->orWhereBetween('end_datetime', [$startDt, $endDt]);   // を開始と終了の両方をORでチェック
+                })
+            ->where('shows.status', 1);
 
         if ($query->exists()) { // 被ってた
             $valiMsgs[] = '上映スケジュールが登録済のものと被っています。確認してください。';
@@ -136,8 +138,63 @@ class ShowController extends Controller
 
         $show = $this->showsTable->where('show_id', $insertId);
 
-        // 多分スケジュールTOPに戻ってflashMsgで通知
+        // スケジュールTOPに戻ってflashMsgで通知
         return redirect('/admin/show')->with('flashMsg', 'スケジュールを追加しました。開始時刻:'.$show->start_datetime.' スクリーン:'.($show->screen_symbol+1).'番'); // どれを追加したいのか追記したい
+    }
+
+
+    /**
+     * 今週の上映タイトル一覧情報画面表示処理
+     * /show/this_week
+     */
+    public function goTitlesPerThisWeek(Request $request)
+    {
+        $assign = [];
+
+        // SELECT shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer, movies.actor, 
+        // movies.aired, movies.synopsis, movies.img_path, movies.url
+        // FROM shows
+        //     INNER JOIN movies ON movies.movie_id = shows.movie_id
+        // WHERE shows.start_datetime >= DATE_SUB(NOW(), INTERVAL 1 WEEK)
+        //     AND shows.status = 1
+        // GROUP BY shows.movie_id
+        // ORDER BY min_start_datetime ASC
+
+        $query = $this->showsTable
+            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
+                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
+            ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')   // 何故か不等号の向きが逆になる
+            ->where('shows.status', 1)
+            ->groupBy('shows.movie_id')
+            ->orderBy('min_start_datetime', 'ASC');
+
+        $shows = $query->get();
+
+        dd($shows);
+    }
+
+
+    /**
+      * 明日以降の全上映タイトル一覧情報画面表示処理
+      * /show/future
+      */
+    public function goTitlesInFuture(Request $request)
+    {
+        $assign = [];
+
+        $query = $this->showsTable
+            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
+                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
+            ->where('shows.start_datetime', '<', 'NOW()')
+            ->where('shows.status', 1)
+            ->groupBy('shows.movie_id')
+            ->orderBy('min_start_datetime', 'ASC');
+
+        $shows = $query->get();
+
+        dd($shows);
     }
 
 
@@ -250,12 +307,13 @@ class ShowController extends Controller
             ->where('shows.show_id', $showId)
             ->where('shows.status', 1);
         $updatedShow = $query->first();
-        $startDt = explode(' ', $updatedShow->start_datetime);
-        $assign['start_datetime'] = $startDt[0].'T'.$startDt[1];
-        if (isset($this->input['start_datetime'])) {
-            $assign['start_datetime'] = $this->input['start_datetime'];
+        if (isset($this->input['start_datetime'])) {    // 確認画面から戻った時にDBの値ではなく入力した値をセット
+            $startDt = $this->input['start_datetime'];
+        } else {
+            $startDtArr = explode(' ', $updatedShow->start_datetime);
+            $startDt = $startDtArr[0].'T'.$startDtArr[1];
         }
-
+        $assign['start_datetime'] = $startDt;
         $assign['movie_title'] = $updatedShow->movie_title;
         $assign['cleaning_time'] = $updatedShow->cleaning_time;
         $assign['screen_symbol'] = $updatedShow->screen_symbol;
@@ -287,13 +345,14 @@ class ShowController extends Controller
         $endDtObj = $startDtObj->modify('+'.$hour.' hour +'.$min.' minute');
         $endDt = $endDtObj->format('Y-m-d H:i:s');
 
+        // ここをメソッド化したい
         $query = $this->showsTable
             ->where('screen_symbol', $this->input['screen_symbol']) // 同じスクリーンで
             ->where(function ($q) use ($startDt, $endDt) {
-                $q->whereBetween('start_datetime', [$startDt, $endDt])    // 上映+全掃除時間が被っていないか
-                    ->orWhereBetween('end_datetime', [$startDt, $endDt]);   // を開始と終了の両方をORでチェック
-            });
-
+                    $q->whereBetween('start_datetime', [$startDt, $endDt])    // 上映+全掃除時間が被っていないか
+                        ->orWhereBetween('end_datetime', [$startDt, $endDt]);   // を開始と終了の両方をORでチェック
+                })
+            ->where('shows.status', 1);
         if ($query->exists()) { // 被ってた
             $valiMsgs[] = '上映スケジュールが登録済のものと被っています。確認してください。';
         }
@@ -344,7 +403,7 @@ class ShowController extends Controller
             ]);
         $updatedShow = $this->showsTable->where('show_id', $showId)->first();
 
-        // 多分スケジュールTOPに戻ってflashMsgで通知
+        // スケジュールTOPに戻ってflashMsgで通知
         return redirect('/admin/show')->with('flashMsg', 'スケジュールを編集しました。開始時刻:'.$updatedShow->start_datetime.' スクリーン:'.($updatedShow->screen_symbol+1).'番');    // どれを更新したのか追記したい
     }
 
@@ -389,7 +448,7 @@ class ShowController extends Controller
 
         $deletedShow = $this->showsTable->where('show_id', $showId)->first();
 
-        // 多分スケジュールTOPに戻ってflashMsgで通知
+        // スケジュールTOPに戻ってflashMsgで通知
         return redirect('/admin/show')->with('flashMsg', 'スケジュールを削除しました。開始時刻:'.$deletedShow->start_datetime.' スクリーン:'.($deletedShow->screen_symbol+1).'番'); // どれを削除したのかを追記したい
     }
 }

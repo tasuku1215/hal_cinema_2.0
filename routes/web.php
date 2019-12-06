@@ -2,7 +2,12 @@
 
 Route::get("/", "HomeController@showHome");
 
-// 上映スケジュール関連
+// 一般ユーザー関連
+Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
+Route::get('/show/future', 'ShowController@goTitlesInFuture');
+
+
+// admin関連
 Route::get('/admin/show/add/input', 'ShowController@goAddPerOnce');
 Route::post('/admin/show/add/confirm', 'ShowController@goAddConfirmPerOnce');
 Route::post('/admin/show/add', 'ShowController@addPerOnce');
