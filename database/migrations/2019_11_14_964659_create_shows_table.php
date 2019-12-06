@@ -15,10 +15,11 @@ class CreateShowsTable extends Migration
     {
         Schema::create('shows', function (Blueprint $table) {
             $table->bigIncrements('show_id');
-            $table->tinyInteger('screen_symbol')->comment('0:スクリーンA, 1:スクリーンB');
+            $table->tinyInteger('screen_symbol')->commnt('0:スクリーンA, 1:スeクリーンB');
             $table->datetime('start_datetime');
             $table->datetime('end_datetime');
-            $table->tinyInteger('status')->comment('0:無効(非表示), 1:有効');
+            $table->integer('cleaning_time')->comment('総掃除時間(前後を足したもの)');
+            $table->tinyInteger('status')->default(1)->comment('0:無効(非表示), 1:有効');
 
             // 外部キー群
             $table->bigInteger('movie_id')->unsigned();

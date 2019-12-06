@@ -3,11 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="author" content="Shinzo SAITO">
-        <title>料金情報編集　｜　ScottAdminLaravel</title>
+        <title>料金情報編集　｜　料金情報管理</title>
     </head>
     <body>
         <header>
-            <h1>料金情報編集</h1>
+            <h1>従業員情報編集</h1>
         </header>
         <nav id="breadcrumbs">
             <ul>
@@ -30,7 +30,7 @@
             <p>
                 情報を入力し、更新ボタンをクリックしてください。
             </p>
-            <form action="/hal_cinema_2.0/public/admin/price/edit" method="post" class="box">
+                <form action="/hal_cinema_2.0/public/admin/price/edit" method="post" class="box">
                 @csrf
                 料金ID:&nbsp;{{$price->getId()}}<br>
                 <input type="hidden" name="editId" value="{{$price->getId()}}">
@@ -38,7 +38,7 @@
                     料金名&nbsp;<span class="required">必須</span>
                     <input type="text" id="editName" name="editName" value="{{$price->getName()}}" required>
                 </label><br>
-                <label for="editEmJob">
+                <label for="editPrice">
                     価格&nbsp;<span class="required">必須</span>
                     <input type="number" id="editPrice" name="editPrice" value="{{$price->getPrice()}}" required>
                 </label><br>
@@ -89,30 +89,27 @@
                     @endfor
                     </select>日
                 </label><br>
-
                 <label for="editEndDay">
-                    開始日&nbsp;<span class="required">必須</span>
+                    終了日&nbsp;<span class="required">必須</span>
                     <select name="editEdYear" id="editEdYear" required>
-
-                    @php
-                        $datetimeEnd = $price->getEndDay();
-                        $datetimeEnd1 = explode(' ', $datetimeEnd);
-                        $endDate = explode('-', $datetimeEnd1[0]);
-                        $getEndYear = $endDate[0];
-                        $getEndMonth = $endDate[1];
-                        $getEndDay = $endDate[2];
-
-                        $endNowyear = date('Y');
-                    @endphp
-
-                    @for($year=$endNowyear;$year<=$endNowyear+3;$year++)
                         @php
-                            $attr = $getEndYear == $year ? 'selected':'';
+                            $datetimeEnd = $price->getEndDay();
+                            $datetimeEnd1 = explode(' ', $datetimeEnd);
+                            $endDate = explode('-', $datetimeEnd1[0]);
+                            $getEndYear = $endDate[0];
+                            $getEndMonth = $endDate[1];
+                            $getEndDay = $endDate[2];
+
+                            $endNowyear = date('Y');
                         @endphp
-                        <option value="{{$year}}" {{$attr}}>
-                            {{$year}}
-                        </option>
-                    @endfor
+                        @for($year=$endNowyear;$year<=$endNowyear+3;$year++)
+                            @php
+                                $attr = $getEndYear == $year ? 'selected':'';
+                            @endphp
+                            <option value="{{$year}}" {{$attr}}>
+                                {{$year}}
+                            </option>
+                        @endfor
                     </select>年
 
                     <select name="editEdMonth" id="editEdMonth" required>
@@ -123,7 +120,7 @@
                         <option value="{{$month}}" {{$attr}}>
                             {{$month}}
                         </option>
-                    @endfor
+                        @endfor
                     </select>月
 
                     <select name="editEdDay" id="editEdDay" required>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="author" content="Shinzo SAITO">
-        <title>部門情報追加　｜　ScottAdminLaravel</title>
+        <title>料金情報追加　｜　料金情報管理</title>
     </head>
     <body>
         <header>
@@ -30,7 +30,7 @@
             <p>
                 情報を入力し、登録ボタンをクリックしてください。
             </p>
-            <form action="/hal_cinema_2.0/public/admin/price/add" method="post" class="box">
+                <form action="/hal_cinema_2.0/public/admin/price/add" method="post" class="box">
                 @csrf
                 <label for="addName">
                     料金名&nbsp;<span class="required">必須</span>
@@ -90,7 +90,6 @@
                     @endfor
                     </select>日
                 </label><br>
-
                 <label for="addEndDay">
                     終了日&nbsp;<span class="required">必須</span>
                     <select name="addEdYear" id="addEdYear" required>
@@ -139,9 +138,8 @@
                             {{$day}}
                         </option>
                     @endfor
-                    </select>日
+                </select>日
                 </label><br>
-
                 <button type="submit">登録</button>
             </form>
         </section>
