@@ -17,6 +17,28 @@ class PriceDAO {
         $this->db = $db;
     }
 
+    public function findByPK(int $price_id): ?Price {
+        $sql = "SELECT * FROM prices WHERE price_id = :price_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":price_id",$price_id,PDO::PARAM_INT);
+        $result = $stmt->execute();
+        $emp = null;
+        if($result && $row = $stmt->fetch()) {
+            $price_id = $row['price_id'];
+            $price_name = $row['price_name'];
+            $amount= $row['price'];
+            $startDay = $row['start_day'];
+            $endDay = $row['end_day'];
+
+            $price = new Price();
+            $price->setId($price_id);
+            $price->setName($price_name);
+            $price->setPrice($amount);
+            $price->setStartDay($startDay);
+            $price->setEndDay($endDay);
+        }
+        return $price;
+    }
 
     public function findAll(): array
     {
@@ -27,19 +49,43 @@ class PriceDAO {
         while ($row = $stmt->fetch()) {
             $price_id = $row['price_id'];
             $price_name = $row['price_name'];
-            $price = $row['price'];
+            $amount= $row['price'];
             $startDay = $row['start_day'];
             $endDay = $row['end_day'];
 
             $price = new Price();
             $price->setId($price_id);
             $price->setName($price_name);
-            $price->setPrice($price);
+            $price->setPrice($amount);
             $price->setStartDay($startDay);
             $price->setEndDay($endDay);
             $priceList[$price_id] = $price;
         }
         return $priceList;
+    }
+
+    public function findByPriceName(string $price_name): ?Price
+    {
+        $sql = "SELECT * FROM prices WHERE price_name = :price_name";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":price_name",$price_name,PDO::PARAM_STR);
+        $result = $stmt->execute();
+        $price = null;
+        if($result && $row = $stmt->fetch()) {
+            $price_id = $row['price_id'];
+            $price_name = $row['price_name'];
+            $amount= $row['price'];
+            $startDay = $row['start_day'];
+            $endDay = $row['end_day'];
+
+            $price = new Price();
+            $price->setId($price_id);
+            $price->setName($price_name);
+            $price->setPrice($amount);
+            $price->setStartDay($startDay);
+            $price->setEndDay($endDay);
+        }
+        return $price;
     }
 
 
@@ -58,5 +104,18 @@ class PriceDAO {
             $price_id = -1;
         }
         return $price_id;
+    }
+
+    public function update(Price $price): bool
+    {
+        $sqlUpdate = "UPDATE prices SET price_name = :price_name, price = :price, start_day = :start_day, end_day = :end_day WHERE price_id = :price_id";
+        $stmt = $this->db->prepare($sqlUpdate);
+        $stmt->bindValue(":price_id", $price->getId(), PDO::PARAM_INT);
+        $stmt->bindValue(":price_name", $price->getName(), PDO::PARAM_STR);
+        $stmt->bindValue(":price", $price->getPrice(), PDO::PARAM_INT);
+        $stmt->bindValue(":start_day", $price->getStartDay(), PDO::PARAM_STR);
+        $stmt->bindValue(":end_day", $price->getEndDay(), PDO::PARAM_STR);
+        $result = $stmt->execute();
+        return $result;
     }
 }

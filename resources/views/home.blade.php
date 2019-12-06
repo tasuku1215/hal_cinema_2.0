@@ -1,7 +1,7 @@
 @extends('tmp/body')
 
 @section('title', 'ホーム')
-@section('css', '/hal_cinema_2/public/css/home.css')
+@section('css', '/hal_cinema_2.0/public/css/home.css')
 @include('tmp/header')
 
 @section('content')
