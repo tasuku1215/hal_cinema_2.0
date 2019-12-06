@@ -5,6 +5,12 @@ use Illuminate\Support\Facades\Route;
 //ホーム画面へ
 Route::get("/", "HomeController@showHome");
 
+// 一般ユーザー関連
+Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
+Route::get('/show/future', 'ShowController@goTitlesInFuture');
+
+
+// admin関連
 //ログイン・ログアウト
 Route::get('/admin', 'LoginController@goLogin');
 Route::post('/admin/user/login', 'LoginController@login');
