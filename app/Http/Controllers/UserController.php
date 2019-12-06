@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    public function goTop()
+    {
+        return view("/admin/user/admin");
+    }
+
     public function register(Request $request)
     {
         $id = $request->input('login_id');

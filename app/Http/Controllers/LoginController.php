@@ -27,7 +27,10 @@ class LoginController extends Controller
         if (empty($admins)) {
             $validationMsgs['error'] = "IDもしくはパウワードが間違ってます。";
         } else {
-            return redirect("/admin/user/goTop");
+            $session = $request->session();
+            $session->put("loginFlg", true);
+            $session->put("id", $login_id);
+            return view("/admin/user/admin");
         }
     }
 
