@@ -23,9 +23,9 @@ class CreateShowsTable extends Migration
 
             // 外部キー群
             $table->bigInteger('movie_id')->unsigned();
-            $table->foreign('movie_id')->references('movie_id')->on('movies');
+            // $table->foreign('movie_id')->references('movie_id')->on('movies');
             $table->bigInteger('admin_id')->unsigned();
-            $table->foreign('admin_id')->references('admin_id')->on('admins');
+            // $table->foreign('admin_id')->references('admin_id')->on('admins');
 
             $table->timestamps();
         });

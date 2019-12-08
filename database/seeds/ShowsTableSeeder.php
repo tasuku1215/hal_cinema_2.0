@@ -11,7 +11,7 @@ class ShowsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('movies')->insert([
+        DB::table('shows')->insert([
             [
                 'show_id' => '4',
                 'screen_symbol' => '0',
