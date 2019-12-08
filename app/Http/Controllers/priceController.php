@@ -178,14 +178,46 @@ class PriceController extends Controller
     }
 
     //料金削除画面表示処理
-    public function confirmDelete()
+    public function confirmDelete(int $price_id, Request $request)
     {
-        return view("admin/price/priceConfirmDelete");
+        $templatePath = "admin/price/priceConfirmDelete";
+        $assign = [];
+
+        $db = DB::connection()->getPdo();
+        $priceDAO = new PriceDAO($db);
+        $price = $priceDAO->findByPK($price_id);
+        if(empty($price)) {
+            $assign["errorMsg"] = "部門情報の取得に失敗しました。";
+            $templatePath = "error";
+        }
+        else {
+            $assign["price"] = $price;
+        }
+        return view($templatePath, $assign);
     }
 
     //料金削除処理
-    public function delete()
+    public function delete(Request $request)
     {
-        return view("admin/price/priceconfirmDelete");
+        $templatePath = "error";
+        $isRedirect = false;
+        $assign = [];
+        $deleteId = $request->input("deleteId");
+        $db = DB::connection()->getPdo();
+        $priceDAO = new PriceDAO($db);
+        $result = $priceDAO->delete($deleteId);
+        if($result) {
+            $isRedirect = true;
+        }
+        else {
+            $assign["errorMsg"] = "情報削除に失敗しました。もう一度はじめからやり直してください。";
+        }
+        if($isRedirect) {
+            $response = redirect("/admin/price/showList")->with("flashMsg","料金ID".$deleteId."の料金情報を削除しました。");
+        }
+        else {
+            $response = view($templatePath, $assign);
+        }
+        return $response;
     }
 }

@@ -2,8 +2,7 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <meta name="author" content="Shinzo SAITO">
-        <title>料金情報リスト　｜　HALシネマ</title>
+        <title>料金情報リスト　｜　料金情報管理</title>
     </head>
     <body>
         <header>
@@ -43,7 +42,7 @@
                             <a href="/hal_cinema_2.0/public/admin/price/prepareEdit/{{$price_id}}">編集</a>
                         </td>
                         <td>
-                            <a href="#">削除</a>
+                            <a href="/hal_cinema_2.0/public/admin/price/confirmDelete/{{$price_id}}">削除</a>
                         </td>
                     </tr>
                     @empty

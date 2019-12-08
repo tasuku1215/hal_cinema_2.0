@@ -2,7 +2,6 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <meta name="author" content="Shinzo SAITO">
         <title>料金情報編集　｜　料金情報管理</title>
     </head>
     <body>

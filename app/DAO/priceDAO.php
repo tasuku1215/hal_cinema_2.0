@@ -118,4 +118,12 @@ class PriceDAO {
         $result = $stmt->execute();
         return $result;
     }
+
+    public function delete(int $price_id): bool {
+        $sql = "DELETE FROM prices WHERE price_id = :price_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":price_id",$price_id,PDO::PARAM_INT);
+        $result = $stmt->execute();
+        return $result;
+    }
 }
