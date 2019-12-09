@@ -9,9 +9,9 @@
 <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Monoton|Sacramento|Tangerine&display=swap" rel="stylesheet">
 
 
-<link rel="stylesheet" href="/hal_cinema_2.0/public/css/header.css" type="text/css">
-<link rel="stylesheet" href="/hal_cinema_2.0/public/css/hamburger.css" type="text/css">
-<link rel="stylesheet" href="/hal_cinema_2.0/public/css/footer.css" type="text/css">
+<link rel="stylesheet" href="/hal_cinema_2/public/css/header.css" type="text/css">
+<link rel="stylesheet" href="/hal_cinema_2/public/css/hamburger.css" type="text/css">
+<link rel="stylesheet" href="/hal_cinema_2/public/css/footer.css" type="text/css">
 
 <link rel="stylesheet" href="@yield('css')" type="text/css">
 <link rel="stylesheet" href="@yield('css2')" type="text/css">

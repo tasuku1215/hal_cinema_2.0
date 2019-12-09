@@ -51,7 +51,7 @@ class ShowController extends Controller
             $assign = $input;
         }
 
-        return view('show.goAdd', $assign);
+        return view('admin.show.goAdd', $assign);
     }
 
 
@@ -108,7 +108,7 @@ class ShowController extends Controller
             $assign['end_datetime'] = $endDt;
         }
 
-        return view('show.' . $tplPath, $assign);
+        return view('admin.show.' . $tplPath, $assign);
     }
 
 
@@ -220,7 +220,7 @@ class ShowController extends Controller
         $shows = $query->get();
         $assign['shows'] = $shows;
 
-        return view('show.listPerToday', $assign);
+        return view('admin.show.listPerToday', $assign);
     }
 
 
@@ -235,14 +235,14 @@ class ShowController extends Controller
         $query = $this->showsTable
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
             ->join('admins', 'shows.admin_id', '=', 'admins.admin_id')
-            ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')
+            ->where('shows.start_datetime', '>=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')
             ->where('shows.status', 1)
             ->orderBy('shows.start_datetime', 'DESC');
         $shows = $query->get();
 
         $assign['shows'] = $shows;
 
-        return view('show.listPerThisWeek', $assign);
+        return view('admin.show.listPerThisWeek', $assign);
     }
 
 
@@ -257,14 +257,14 @@ class ShowController extends Controller
         $query = $this->showsTable
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
             ->join('admins', 'shows.admin_id', '=', 'admins.admin_id')
-            ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 MONTH)')
+            ->where('shows.start_datetime', '>=', 'DATE_SUB(NOW(), INTERVAL 1 MONTH)')
             ->where('shows.status', 1)
             ->orderBy('shows.start_datetime', 'DESC');
         $shows = $query->get();
 
         $assign['shows'] = $shows;
 
-        return view('show.listPerThisMonth', $assign);
+        return view('admin.show.listPerThisMonth', $assign);
     }
 
 
@@ -288,7 +288,7 @@ class ShowController extends Controller
         $assign['shows'] = $shows;
         $assign['movie_title'] = $movieTitle;
 
-        return view('show.listByTitle', $assign);
+        return view('admin.show.listByTitle', $assign);
     }
 
 
@@ -318,7 +318,7 @@ class ShowController extends Controller
         $assign['cleaning_time'] = $updatedShow->cleaning_time;
         $assign['screen_symbol'] = $updatedShow->screen_symbol;
 
-        return view('show.goUpdate', $assign);
+        return view('admin.show.goUpdate', $assign);
     }
 
 
@@ -377,7 +377,7 @@ class ShowController extends Controller
             $assign['end_datetime'] = $endDt;
         }
 
-        return view('show.' . $tplPath, $assign);
+        return view('admin.show.' . $tplPath, $assign);
     }
 
 
@@ -426,7 +426,7 @@ class ShowController extends Controller
         $assign['show'] = $deleteShow;
         $assign['show_id'] = $showId;
 
-        return view('show.confirmDelete', $assign);
+        return view('admin.show.confirmDelete', $assign);
     }
 
 

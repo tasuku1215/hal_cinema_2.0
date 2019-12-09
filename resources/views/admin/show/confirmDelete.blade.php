@@ -21,11 +21,11 @@
 	</select>
 </div>
 
-<form action="/hal_cinema_2.0/public/admin/{{ $show_id }}/delete" method="POST">
+<form action="/hal_cinema_2/public/admin/{{ $show_id }}/delete" method="POST">
 	@csrf
 	<button type="submit" class="form-control btn btn-danger mt-2">削除する</button>
 </form>
 
-<a href="/hal_cinema_2.0/public/admin/{{ $show_id }}/update/input" class="form-control btn btn-primary mt-2">編集画面に戻る</a>
+<a href="/hal_cinema_2/public/admin/{{ $show_id }}/update/input" class="form-control btn btn-primary mt-2">編集画面に戻る</a>
 
 @endsection

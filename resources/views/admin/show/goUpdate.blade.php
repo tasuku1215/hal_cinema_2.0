@@ -6,13 +6,13 @@
 	<p>以下のメッセージをご確認ください。</p>
 	<ul>
 		@foreach ($validationMsgs as $msg)
-			<li>{{$msg}}</li>
+		<li>{{$msg}}</li>
 		@endforeach
 	</ul>
 </section>
 @endisset
 
-<form action="/hal_cinema_2.0/public/admin/{{ $show_id }}/update/confirm" method="POST">
+<form action="/hal_cinema_2/public/admin/{{ $show_id }}/update/confirm" method="POST">
 	@csrf
 	<div class="form-group">
 		<label for="movie_title">movie_title</label>
@@ -31,14 +31,14 @@
 	<div class="form-group">
 		<label for="screen_symbol">screen_symbol</label>
 		<select name="screen_symbol" id="screen_symbol" class="form-control">
-			<option value="0" @if($screen_symbol == 0)selected @endif>スクリーン１</option>
-			<option value="1" @if($screen_symbol == 1)selected @endif>スクリーン２</option>
+			<option value="0" @if($screen_symbol==0)selected @endif>スクリーン１</option>
+			<option value="1" @if($screen_symbol==1)selected @endif>スクリーン２</option>
 		</select>
 	</div>
 	<button type="submit" class="form-control btn btn-primary mt-2">この内容で確認する</button>
 </form>
 
-<a href="/hal_cinema_2.0/public/admin/{{ $show_id }}/delete/confirm" class="form-control btn btn-warning mt-2">削除する</a>
+<a href="/hal_cinema_2/public/admin/{{ $show_id }}/delete/confirm" class="form-control btn btn-warning mt-2">削除する</a>
 
-<a href="/hal_cinema_2.0/public/admin/show" class="form-control btn page-link text-dark d-inline-block mt-2">一覧画面に戻る</a>
+<a href="/hal_cinema_2/public/admin/show" class="form-control btn page-link text-dark d-inline-block mt-2">一覧画面に戻る</a>
 @endsection
