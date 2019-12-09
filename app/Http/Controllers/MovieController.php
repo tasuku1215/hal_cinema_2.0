@@ -74,7 +74,7 @@ class MovieController extends Controller
         $addAired = $request->input("addAired");
         $addCatchcopy = $request->input("addCatchcopy");
         $addSynopsis = $request->input("addSynopsis");
-        $addImgPath = $request->input("addImgPath");
+        $addImgPath = $_FILES['addImgPath']['name'];
         $addUrl = $request->input("addUrl");
 
         $movie = new Movie();
@@ -102,6 +102,7 @@ class MovieController extends Controller
                 $templatePath = "error";
             }
             else {
+                move_uploaded_file($_FILES["addImgPath"]["tmp_name"],"../public/img/".$_FILES["addImgPath"]["name"]);
                 $isRedirect = true;
             }
         }
@@ -121,6 +122,7 @@ class MovieController extends Controller
             $response = view($templatePath, $assign);
         }
         return $response;
+        var_dump($movie);
     }
 
     //料金更新画面表示処理
@@ -156,7 +158,7 @@ class MovieController extends Controller
         $editAired = $request->input("editAired");
         $editCatchcopy = $request->input("editCatchcopy");
         $editSynopsis = $request->input("editSynopsis");
-        $editImgPath = $request->input("editImgPath");
+        $editImgPath = $_FILES['editImgPath']['name'];
         $editUrl = $request->input("editUrl");
 
         $movie = new Movie();
@@ -180,6 +182,7 @@ class MovieController extends Controller
         if(empty($validationMsgs)) {
             $result = $movieDAO->update($movie);
             if($result) {
+                move_uploaded_file($_FILES["editImgPath"]["tmp_name"],"../public/img/".$_FILES["editImgPath"]["name"]);
                 $isRedirect = true;
             }
             else {
@@ -195,6 +198,7 @@ class MovieController extends Controller
         $movieList = $movieDAO->findAll();
 
         $assign["movieList"] = $movieList;
+
         if($isRedirect) {
             $response = redirect("/admin/movie/detail/".$editId)->with("flashMsg","映画ID".$editId."の料金情報を更新しました。");
         }

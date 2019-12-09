@@ -57,12 +57,12 @@
                     </tr>
 
                     <tr>
-                            <th>画像パス</th>
-                            <td>{{$movie->getImgPath()}}</td>
+                            <th>画像</th>
+                            <td><img src="/hal_cinema_2.0/public/img/{{$movie->getImgPath()}}" width="20%" height="20%"></td>
                     </tr>
                     <tr>
                             <th>URL</th>
-                            <td>{{$movie->getUrl()}}</td>
+                            <td><a href="{{$movie->getUrl()}}">{{$movie->getUrl()}}</td>
                     </tr>
                     <tr>
                             <th>操作</th>

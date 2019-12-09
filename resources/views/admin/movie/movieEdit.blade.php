@@ -29,7 +29,7 @@
             <p>
                 情報を入力し、登録ボタンをクリックしてください。
             </p>
-                <form action="/hal_cinema_2.0/public/admin/movie/edit" method="post" class="box">
+                <form action="/hal_cinema_2.0/public/admin/movie/edit" enctype="multipart/form-data" method="post" class="box">
                 @csrf
                 映画ID:&nbsp;{{$movie->getId()}}<br>
                 <input type="hidden" name="editId" value="{{$movie->getId()}}">

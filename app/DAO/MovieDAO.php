@@ -121,7 +121,7 @@ class MovieDAO {
 
     public function insert(Movie $movie): int
     {
-        $sqlInsert = "INSERT INTO movies (movie_title, screen_time, directer, actor, aired, catchcopy, synopsis, img_path, url) VALUES (:movie_title, :screen_time, :directer, :actor, :aired, :catchcopy, :synopsis, :img_path, :url)";
+        $sqlInsert = "INSERT INTO movies (movie_title, screen_time, directer, actor, aired, catchcopy, synopsis, img_path, url, created_at) VALUES (:movie_title, :screen_time, :directer, :actor, :aired, :catchcopy, :synopsis, :img_path, :url, now())";
         $stmt = $this->db->prepare($sqlInsert);
         $stmt->bindValue(":movie_title", $movie->getTitle(), PDO::PARAM_STR);
         $stmt->bindValue(":screen_time", $movie->getScreenTime(), PDO::PARAM_INT);
@@ -143,7 +143,7 @@ class MovieDAO {
 
     public function update(Movie $movie): bool
     {
-        $sqlUpdate = "UPDATE movies SET movie_title=:movie_title, screen_time=:screen_time, directer=:directer, actor=:actor, aired=:aired, catchcopy=:catchcopy, synopsis=:synopsis, img_path=:img_path, url=:url WHERE movie_id = :movie_id";
+        $sqlUpdate = "UPDATE movies SET movie_title=:movie_title, screen_time=:screen_time, directer=:directer, actor=:actor, aired=:aired, catchcopy=:catchcopy, synopsis=:synopsis, img_path=:img_path, url=:url, updated_at=now() WHERE movie_id = :movie_id";
         $stmt = $this->db->prepare($sqlUpdate);
         $stmt->bindValue(":movie_id", $movie->getId(), PDO::PARAM_INT);
         $stmt->bindValue(":movie_title", $movie->getTitle(), PDO::PARAM_STR);

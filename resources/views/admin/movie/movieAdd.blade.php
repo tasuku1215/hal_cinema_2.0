@@ -29,7 +29,7 @@
             <p>
                 情報を入力し、登録ボタンをクリックしてください。
             </p>
-                <form action="/hal_cinema_2.0/public/admin/movie/add" method="post" class="box">
+                <form action="/hal_cinema_2.0/public/admin/movie/add" enctype="multipart/form-data" method="post" class="box">
                 @csrf
                 <label for="addTitle">
                     タイトル&nbsp;<span class="required">必須</span>
@@ -61,7 +61,7 @@
                 </label><br>
                 <label for="addImgPath">
                     画像&nbsp;<span class="required">必須</span>
-                    <input type="file" id="addImgPath" name="addImgPath" value="{{$movie->getImgPath()}}" required>
+                    <input type="file" id="addImgPath" name="addImgPath" required>
                 </label><br>
                 <label for="addUrl">
                     URL&nbsp;<span class="required">必須</span>
