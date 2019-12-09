@@ -12,7 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(
+            AdminsTableSeeder::class
+        );
+        $this->call(
             MoviesTableSeeder::class
+        );
+        $this->call(
+            ShowsTableSeeder::class
+        );
+        $this->call(
+            LabelsTableSeeder::class
         );
     }
 }
