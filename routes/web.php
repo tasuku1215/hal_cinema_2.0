@@ -41,3 +41,17 @@ Route::post("/admin/price/edit", "priceController@edit");
 //削除
 Route::get("/admin/price/confirmDelete/{price_id}", "priceController@confirmDelete");
 Route::post("/admin/price/delete", "priceController@delete");
+
+//映画ページ
+//一覧表示
+Route::get("/admin/movie/showList", "MovieController@showList");
+Route::get("/admin/movie/detail/{movie_id}", "MovieController@showDetail");
+//登録
+Route::get("/admin/movie/goAdd", "MovieController@goAdd");
+Route::post("/admin/movie/add", "MovieController@add");
+//変更
+Route::get("/admin/movie/prepareEdit/{movie_id}", "MovieController@prepareEdit");
+Route::post("/admin/movie/edit", "MovieController@edit");
+//削除
+Route::get("/admin/movie/confirmDelete/{movie_id}", "MovieController@confirmDelete");
+Route::post("/admin/movie/delete", "MovieController@delete");
