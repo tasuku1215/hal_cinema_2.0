@@ -30,7 +30,7 @@
             <h2>上映カレンダー</h2>
             <h3 class="date"></h3>
             <div class="movie">
-                <h3><a href="">ジュラシックワールド　炎の王国</a></h3>
+                <h3><a href="#"></a></h3>
                 <p class="minute"></p>
                 <div class="flexbox">
                     <div>10:15 ~</div>
@@ -85,7 +85,7 @@
             console.log(msg);
             var i = 0;
             $(".date").append(msg.date + " （" + msg.dow + "）");
-            for (const [key, value] of Object.entries(msg.schedule)) {
+            for (const [key, value] of Object.entries(msg.movies)) {
                 $(".minute").append("[上映時間：" + value.screen_time + "min]");
                 i++;
             }

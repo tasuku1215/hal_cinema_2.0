@@ -24,24 +24,24 @@ class HomeController extends Controller
 
         //料金
         $money = DB::table('prices')
-            ->where('start_day', '>=', $today)
+            ->where('start_day', '<=', $today)
             ->orderBy('price', 'desc')
             ->get();
 
         return view("home")->with([
             "recommend" => $recommend,
-            "prices" => $money
+            "prices" => $money,
         ]);
     }
 
     public function today()
     {
+        //日付関連
         $dt = Carbon::now();
         $date = $dt->format('m月d日');
-
         $week = new \App\Libs\DayOfWeek;
-
         $DoW = $week->dow($dt->dayOfWeek);
+
         //初回進入時、当日分表示
         $today = Carbon::today();
         $until = Carbon::tomorrow();
@@ -51,11 +51,37 @@ class HomeController extends Controller
             ->where('shows.end_datetime', '<', $until)
             ->get();
 
+        //一種の解決策
+        $movie = [];
+        $mv = [];
+        $cnt = 1;
+        foreach ($schedule as $sche) {
+            $mv[$cnt] = $sche->movie_id;
+            foreach ($mv as $lib) {
+                if ($lib != $mv[$cnt]) {
+                    $movie[$sche->movie_id]["movie_title"] = $sche->movie_title;
+                    $movie[$sche->movie_id]["screen_time"] = $sche->screen_time;
+                    $movie[$sche->movie_id]["screen_symbol"] = $sche->screen_symbol;
+                    $movie[$sche->movie_id]["start_datetime"][$cnt] = $sche->start_datetime;
+                } else {
+                    $movie[$sche->movie_id]["start_datetime"][$cnt] = $sche->start_datetime;
+                }
+            }
+            if ($cnt == 1) {
+                $movie[$sche->movie_id]["movie_title"] = $sche->movie_title;
+                $movie[$sche->movie_id]["screen_time"] = $sche->screen_time;
+                $movie[$sche->movie_id]["screen_symbol"] = $sche->screen_symbol;
+                $movie[$sche->movie_id]["start_datetime"][$cnt] = $sche->start_datetime;
+            }
+
+            $cnt++;
+        }
+
         return response()->json([
-            'schedule' => $schedule,
             'date' => $date,
             'dow' => $DoW,
             'to' => $today,
+            'movies' => $movie,
         ]);
     }
 }
