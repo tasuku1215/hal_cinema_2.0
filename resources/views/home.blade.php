@@ -28,13 +28,13 @@
     <section class="calender">
         <div class="calen">
             <h2>上映カレンダー</h2>
-            <h3 class="date"></h3>
-            <div class="movie">
-                <h3><a href="#"></a></h3>
-                <p class="minute"></p>
-                <div class="flexbox">
-                    <div>10:15 ~</div>
-                </div>
+            <div class="day">
+                <a class="before">＜</a>
+                <h3 id="date"></h3>
+                <input type="hidden" name="hide_date" id="hide_date" value="">
+                <a class="after">＞</a>
+            </div>
+            <div id="mv">
             </div>
         </div>
     </section>
@@ -84,14 +84,152 @@
             //success
             console.log(msg);
             var i = 0;
-            $(".date").append(msg.date + " （" + msg.dow + "）");
+            $("#date").append(msg.date + " （" + msg.dow + "）");
+            $("#hide_date").eq(i).attr('value', msg.fdt);
+
+            var parent = document.getElementById('mv');
             for (const [key, value] of Object.entries(msg.movies)) {
-                $(".minute").append("[上映時間：" + value.screen_time + "min]");
+                var movie = document.createElement("div");
+                movie.className = "movie";
+                parent.appendChild(movie);
+
+                var mv_h3 = document.createElement("h3");
+                movie.appendChild(mv_h3);
+                var mv_link = document.createElement("a");
+                mv_link.innerHTML = value.movie_title;
+                mv_link.href = "/hal_cinema_2/public/movie/" + key;
+                mv_h3.appendChild(mv_link);
+
+                var min = document.createElement("p");
+                min.innerHTML = "[上映時間：" + value.screen_time + "min]";
+                min.className = "minute";
+                movie.appendChild(min);
+
+                var sc = document.createElement("div");
+                sc.className = "flexbox";
+                movie.appendChild(sc);
+
+                for (const [index, val] of Object.entries(value.start_datetime)) {
+                    var sche = document.createElement("div");
+                    sche.innerHTML = val.slice(11, 16) + "〜";
+                    sc.appendChild(sche);
+                }
+
                 i++;
             }
         }).fail(function(xhr, status, error) {
             //error
             console.log(status);
+        })
+    })
+
+    $(".before").on('click', function() {
+        var data = {};
+        data.date = $('[name=hide_date]').val();
+        send_data = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: "/hal_cinema_2/public/api/dayBefore",
+            contentType: "Content-Type: application/json; charset=UTF-8",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: send_data
+        }).done(function(msg, status, xhr) {
+            $('#mv').empty();
+            $('#date').empty();
+            $("#hide_date").empty();
+            var i = 0;
+            $("#date").append(msg.date + " （" + msg.dow + "）");
+            $("#hide_date").eq(i).attr('value', msg.fdt);
+
+            var parent = document.getElementById('mv');
+            for (const [key, value] of Object.entries(msg.movies)) {
+                var movie = document.createElement("div");
+                movie.className = "movie";
+                parent.appendChild(movie);
+
+                var mv_h3 = document.createElement("h3");
+                movie.appendChild(mv_h3);
+                var mv_link = document.createElement("a");
+                mv_link.innerHTML = value.movie_title;
+                mv_link.href = "/hal_cinema_2/public/movie/" + key;
+                mv_h3.appendChild(mv_link);
+
+                var min = document.createElement("p");
+                min.innerHTML = "[上映時間：" + value.screen_time + "min]";
+                min.className = "minute";
+                movie.appendChild(min);
+
+                var sc = document.createElement("div");
+                sc.className = "flexbox";
+                movie.appendChild(sc);
+
+                for (const [index, val] of Object.entries(value.start_datetime)) {
+                    var sche = document.createElement("div");
+                    sche.innerHTML = val.slice(11, 16) + "〜";
+                    sc.appendChild(sche);
+                }
+
+                i++;
+            }
+        }).fail(function(xhr, status, error) {
+            console.log(msg);
+        })
+    })
+
+    $(".after").on('click', function() {
+        var data = {};
+        data.date = $('[name=hide_date]').val();
+        send_data = JSON.stringify(data);
+        $.ajax({
+            type: "POST",
+            url: "/hal_cinema_2/public/api/dayAfter",
+            contentType: "Content-Type: application/json; charset=UTF-8",
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: send_data
+        }).done(function(msg, status, xhr) {
+            $('#mv').empty();
+            $('#date').empty();
+            $("#hide_date").empty();
+            var i = 0;
+            $("#date").append(msg.date + " （" + msg.dow + "）");
+            $("#hide_date").eq(i).attr('value', msg.fdt);
+
+            var parent = document.getElementById('mv');
+            for (const [key, value] of Object.entries(msg.movies)) {
+                var movie = document.createElement("div");
+                movie.className = "movie";
+                parent.appendChild(movie);
+
+                var mv_h3 = document.createElement("h3");
+                movie.appendChild(mv_h3);
+                var mv_link = document.createElement("a");
+                mv_link.innerHTML = value.movie_title;
+                mv_link.href = "/hal_cinema_2/public/movie/" + key;
+                mv_h3.appendChild(mv_link);
+
+                var min = document.createElement("p");
+                min.innerHTML = "[上映時間：" + value.screen_time + "min]";
+                min.className = "minute";
+                movie.appendChild(min);
+
+                var sc = document.createElement("div");
+                sc.className = "flexbox";
+                movie.appendChild(sc);
+
+                for (const [index, val] of Object.entries(value.start_datetime)) {
+                    var sche = document.createElement("div");
+                    sche.innerHTML = val.slice(11, 16) + "〜";
+                    sc.appendChild(sche);
+                }
+
+                i++;
+            }
+        }).fail(function(xhr, status, error) {
+            console.log(msg);
         })
     })
 </script>
