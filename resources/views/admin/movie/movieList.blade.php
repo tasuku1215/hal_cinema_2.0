@@ -32,14 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($movieList as $movie_id => $movie)
+                @forelse($movieList as $movie)
                 <tr>
-                    <td>{{$movie_id}}</td>
-                    <td>{{$movie->getTitle()}}</td>
-                    <td>{{$movie->getScreenTime()}}</td>
-                    <td>{{$movie->getDirecter()}}</td>
+                    <td>{{$movie->movie_id}}</td>
+                    <td>{{$movie->movie_title}}</td>
+                    <td>{{$movie->screen_time}}</td>
+                    <td>{{$movie->directer}}</td>
                     <td>
-                        <a href="/hal_cinema_2/public/admin/movie/detail/{{$movie_id}}">詳細</a>
+                        <a href="/hal_cinema_2/public/admin/movie/detail/{{$movie->movie_id}}">詳細</a>
                     </td>
                 </tr>
                 @empty

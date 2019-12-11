@@ -13,32 +13,30 @@ class MovieController extends Controller
     //料金一覧表示
     public function showList()
     {
-        $templatePath = "admin/movie/movieList";
-        $assign = [];
+        $movie = DB::table('movies')
+            ->orderBy('movie_id')
+            ->get();
 
-        $db = DB::connection()->getPdo();
-        $movieDAO = new MovieDAO($db);
-        $movieList = $movieDAO->findAll();
-        $assign["movieList"] = $movieList;
-
-        return view($templatePath, $assign);
+        return view("admin/movie/movieList")->with([
+            "movieList" => $movie
+        ]);
     }
 
     /**
      * レポート詳細画面表示処理
      */
-    public function showDetail(int $movie_id, Request $request) {
+    public function showDetail(int $movie_id, Request $request)
+    {
         $templatePath = "admin/movie/movieDetail";
         $assign = [];
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
         $movieDetail = $movieDAO->findByPK($movie_id);
 
-        if(empty($movieDetail)) {
+        if (empty($movieDetail)) {
             $assign["errorMsg"] = "部門情報の取得に失敗しました。";
             $templatePath = "error";
-        }
-        else {
+        } else {
             $assign["movie"] = $movieDetail;
         }
         return view($templatePath, $assign);
@@ -53,7 +51,7 @@ class MovieController extends Controller
         $assign = [];
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
-        $movieList= $movieDAO->findAll();
+        $movieList = $movieDAO->findAll();
         $assign["movie"] = new Movie();
         $assign["movieList"] = $movieList;
         return view($templatePath, $assign);
@@ -95,18 +93,16 @@ class MovieController extends Controller
         if (!empty($movieDB)) {
             $validationMsgs[] = "その名称の映画はすでに登録されています。別のものを指定してください。";
         }
-        if(empty($validationMsgs)) {
+        if (empty($validationMsgs)) {
             $movie_id = $movieDAO->insert($movie);
-            if($movie_id === -1) {
+            if ($movie_id === -1) {
                 $assign["errorMsg"] = "情報登録に失敗しました。もう一度はじめからやり直してください。";
                 $templatePath = "error";
-            }
-            else {
-                move_uploaded_file($_FILES["addImgPath"]["tmp_name"],"../public/img/".$_FILES["addImgPath"]["name"]);
+            } else {
+                move_uploaded_file($_FILES["addImgPath"]["tmp_name"], "../public/img/" . $_FILES["addImgPath"]["name"]);
                 $isRedirect = true;
             }
-        }
-        else{
+        } else {
             $assign["movie"] = $movie;
             $assign["validationMsgs"] = $validationMsgs;
         }
@@ -115,10 +111,9 @@ class MovieController extends Controller
 
         $assign["movieList"] = $movieList;
 
-        if($isRedirect) {
-            $response = redirect("/admin/movie/showList")->with("flashMsg","映画ID" . $movie_id . "で映画情報を登録しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/movie/showList")->with("flashMsg", "映画ID" . $movie_id . "で映画情報を登録しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;
@@ -133,11 +128,10 @@ class MovieController extends Controller
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
         $movie = $movieDAO->findByPK($movie_id);
-        if(empty($movie)) {
+        if (empty($movie)) {
             $assign["errorMsg"] = "料金情報の取得に失敗しました。";
             $templatePath = "error";
-        }
-        else {
+        } else {
             $assign["movie"] = $movie;
         }
         return view($templatePath, $assign);
@@ -146,7 +140,7 @@ class MovieController extends Controller
     //料金更新処理
     public function edit(Request $request)
     {
-        $templatePath="admin/movie/movieEdit";
+        $templatePath = "admin/movie/movieEdit";
         $isRedirect = false;
         $assign = [];
 
@@ -176,21 +170,19 @@ class MovieController extends Controller
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
         $movieDB = $movieDAO->findByMovieTitle($movie->getTitle());
-        if(!empty($movieDB) && $movieDB->getTitle() != $editTitle) {
+        if (!empty($movieDB) && $movieDB->getTitle() != $editTitle) {
             $validationMsgs[] = "その名称はすでに使われています。別のものを指定してください。";
         }
-        if(empty($validationMsgs)) {
+        if (empty($validationMsgs)) {
             $result = $movieDAO->update($movie);
-            if($result) {
-                move_uploaded_file($_FILES["editImgPath"]["tmp_name"],"../public/img/".$_FILES["editImgPath"]["name"]);
+            if ($result) {
+                move_uploaded_file($_FILES["editImgPath"]["tmp_name"], "../public/img/" . $_FILES["editImgPath"]["name"]);
                 $isRedirect = true;
-            }
-            else {
+            } else {
                 $assign["errorMsg"] = "情報更新に失敗しました。もう一度はじめからやり直してください。";
                 $templatePath = "error";
             }
-        }
-        else {
+        } else {
             $assign["movie"] = $movie;
             $assign["validationMsgs"] = $validationMsgs;
         }
@@ -199,10 +191,9 @@ class MovieController extends Controller
 
         $assign["movieList"] = $movieList;
 
-        if($isRedirect) {
-            $response = redirect("/admin/movie/detail/".$editId)->with("flashMsg","映画ID".$editId."の料金情報を更新しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/movie/detail/" . $editId)->with("flashMsg", "映画ID" . $editId . "の料金情報を更新しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;
@@ -217,11 +208,10 @@ class MovieController extends Controller
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
         $movie = $movieDAO->findByPK($movie_id);
-        if(empty($movie)) {
+        if (empty($movie)) {
             $assign["errorMsg"] = "料金情報の取得に失敗しました。";
             $templatePath = "error";
-        }
-        else {
+        } else {
             $assign["movie"] = $movie;
         }
         return view($templatePath, $assign);
@@ -237,16 +227,14 @@ class MovieController extends Controller
         $db = DB::connection()->getPdo();
         $movieDAO = new MovieDAO($db);
         $result = $movieDAO->delete($deleteId);
-        if($result) {
+        if ($result) {
             $isRedirect = true;
-        }
-        else {
+        } else {
             $assign["errorMsg"] = "情報削除に失敗しました。もう一度はじめからやり直してください。";
         }
-        if($isRedirect) {
-            $response = redirect("/admin/movie/showList")->with("flashMsg","映画ID".$deleteId."の料金情報を削除しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/movie/showList")->with("flashMsg", "映画ID" . $deleteId . "の料金情報を削除しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;

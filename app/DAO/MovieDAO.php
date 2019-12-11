@@ -1,10 +1,12 @@
 <?php
+
 namespace App\DAO;
 
 use PDO;
 use App\Entity\Movie;
 
-class MovieDAO {
+class MovieDAO
+{
 
     private $db;
 
@@ -17,13 +19,14 @@ class MovieDAO {
         $this->db = $db;
     }
 
-    public function findByPK(int $movie_id): ?Movie {
+    public function findByPK(int $movie_id): ?Movie
+    {
         $sql = "SELECT * FROM movies WHERE movie_id = :movie_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":movie_id",$movie_id,PDO::PARAM_INT);
+        $stmt->bindValue(":movie_id", $movie_id, PDO::PARAM_INT);
         $result = $stmt->execute();
         $movie = null;
-        if($result && $row = $stmt->fetch()) {
+        if ($result && $row = $stmt->fetch()) {
             $movie_id = $row['movie_id'];
             $movie_title = $row['movie_title'];
             $screen_time = $row['screen_time'];
@@ -88,10 +91,10 @@ class MovieDAO {
     {
         $sql = "SELECT * FROM movies WHERE movie_title = :movie_title";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":movie_title",$movie_title,PDO::PARAM_STR);
+        $stmt->bindValue(":movie_title", $movie_title, PDO::PARAM_STR);
         $result = $stmt->execute();
         $movie = null;
-        if($result && $row = $stmt->fetch()) {
+        if ($result && $row = $stmt->fetch()) {
             $movie_id = $row['movie_id'];
             $movie_title = $row['movie_title'];
             $screen_time = $row['screen_time'];
@@ -159,10 +162,11 @@ class MovieDAO {
         return $result;
     }
 
-    public function delete(int $movie_id): bool {
+    public function delete(int $movie_id): bool
+    {
         $sql = "DELETE FROM movies WHERE movie_id = :movie_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":movie_id",$movie_id,PDO::PARAM_INT);
+        $stmt->bindValue(":movie_id", $movie_id, PDO::PARAM_INT);
         $result = $stmt->execute();
         return $result;
     }

@@ -1,10 +1,12 @@
 <?php
+
 namespace App\DAO;
 
 use PDO;
 use App\Entity\Price;
 
-class PriceDAO {
+class PriceDAO
+{
 
     private $db;
 
@@ -17,16 +19,17 @@ class PriceDAO {
         $this->db = $db;
     }
 
-    public function findByPK(int $price_id): ?Price {
+    public function findByPK(int $price_id): ?Price
+    {
         $sql = "SELECT * FROM prices WHERE price_id = :price_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":price_id",$price_id,PDO::PARAM_INT);
+        $stmt->bindValue(":price_id", $price_id, PDO::PARAM_INT);
         $result = $stmt->execute();
         $emp = null;
-        if($result && $row = $stmt->fetch()) {
+        if ($result && $row = $stmt->fetch()) {
             $price_id = $row['price_id'];
             $price_name = $row['price_name'];
-            $amount= $row['price'];
+            $amount = $row['price'];
             $startDay = $row['start_day'];
             $endDay = $row['end_day'];
 
@@ -49,7 +52,7 @@ class PriceDAO {
         while ($row = $stmt->fetch()) {
             $price_id = $row['price_id'];
             $price_name = $row['price_name'];
-            $amount= $row['price'];
+            $amount = $row['price'];
             $startDay = $row['start_day'];
             $endDay = $row['end_day'];
 
@@ -68,13 +71,13 @@ class PriceDAO {
     {
         $sql = "SELECT * FROM prices WHERE price_name = :price_name";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":price_name",$price_name,PDO::PARAM_STR);
+        $stmt->bindValue(":price_name", $price_name, PDO::PARAM_STR);
         $result = $stmt->execute();
         $price = null;
-        if($result && $row = $stmt->fetch()) {
+        if ($result && $row = $stmt->fetch()) {
             $price_id = $row['price_id'];
             $price_name = $row['price_name'];
-            $amount= $row['price'];
+            $amount = $row['price'];
             $startDay = $row['start_day'];
             $endDay = $row['end_day'];
 
@@ -119,10 +122,11 @@ class PriceDAO {
         return $result;
     }
 
-    public function delete(int $price_id): bool {
+    public function delete(int $price_id): bool
+    {
         $sql = "DELETE FROM prices WHERE price_id = :price_id";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(":price_id",$price_id,PDO::PARAM_INT);
+        $stmt->bindValue(":price_id", $price_id, PDO::PARAM_INT);
         $result = $stmt->execute();
         return $result;
     }
