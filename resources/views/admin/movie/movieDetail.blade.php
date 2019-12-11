@@ -60,7 +60,7 @@
 
                 <tr>
                     <th>画像</th>
-                    <td><img src="/hal_cinema_2/public/img/{{$movie->getImgPath()}}" width="20%" height="20%"></td>
+                    <td><img src="/hal_cinema_2/public/images/movies/{{$movie->getImgPath()}}" width="50%"></td>
                 </tr>
                 <tr>
                     <th>URL</th>
