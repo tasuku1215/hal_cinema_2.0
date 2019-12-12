@@ -27,50 +27,50 @@
             <tbody>
                 <tr>
                     <th>映画ID</th>
-                    <td>{{$movie->getId()}}</td>
+                    <td>{{$movie->movie_id}}</td>
                 </tr>
                 <tr>
                     <th>タイトル</th>
-                    <td>{{$movie->getTitle()}}</td>
+                    <td>{{$movie->movie_title}}</td>
                 </tr>
                 <tr>
                     <th>上映時間</th>
-                    <td>{{$movie->getScreenTime()}}</td>
+                    <td>{{$movie->screen_time}}</td>
                 </tr>
                 <tr>
                     <th>監督</th>
-                    <td>{{$movie->getDirecter()}}</td>
+                    <td>{{$movie->directer}}</td>
                 </tr>
                 <tr>
                     <th>主演</th>
-                    <td>{{$movie->getActor()}}</td>
+                    <td>{{$movie->actor}}</td>
                 </tr>
                 <tr>
                     <th>放映年</th>
-                    <td>{{$movie->getAired()}}</td>
+                    <td>{{$movie->aired}}</td>
                 </tr>
                 <tr>
                     <th>キャッチコピー</th>
-                    <td><textarea readonly>{{$movie->getCatchcopy()}}</textarea></td>
+                    <td><textarea readonly>{{$movie->catchcopy}}</textarea></td>
                 </tr>
                 <tr>
                     <th>あらすじ</th>
-                    <td><textarea readonly>{{$movie->getSynopsis()}}</textarea></td>
+                    <td><textarea readonly>{{$movie->synopsis}}</textarea></td>
                 </tr>
 
                 <tr>
                     <th>画像</th>
-                    <td><img src="/hal_cinema_2/public/images/movies/{{$movie->getImgPath()}}" width="50%"></td>
+                    <td><img src="/hal_cinema_2/public/images/movies/{{$movie->img_path}}" width="50%"></td>
                 </tr>
                 <tr>
                     <th>URL</th>
-                    <td><a href="{{$movie->getUrl()}}">{{$movie->getUrl()}}</td>
+                    <td><a href="{{$movie->url}}">{{$movie->url}}</td>
                 </tr>
                 <tr>
                     <th>操作</th>
                     <td>
-                        <a href="/hal_cinema_2/public/admin/movie/prepareEdit/{{$movie->getId()}}">編集</a>
-                        <a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->getId()}}">削除</a>
+                        <a href="/hal_cinema_2/public/admin/movie/prepareEdit/{{$movie->movie_id}}">編集</a>
+                        <a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->movie_id}}">削除</a>
                     </td>
                 </tr>
             </tbody>
