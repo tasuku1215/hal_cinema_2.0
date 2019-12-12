@@ -10,6 +10,7 @@ Route::get('/contact', 'HomeController@contact');
 // 一般ユーザー関連
 Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
+Route::get('/enquete', 'EnqueteController@enqueteEntry');
 
 // admin関連
 //ログイン・ログアウト
