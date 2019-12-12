@@ -1,19 +1,21 @@
 .textbox {
-	border: 1px solid black;
+    border: 1px solid black;
+    width: 95%;
+    margin: auto;
 }
 
 table th {
-	text-align: left;
+    text-align: left;
 }
 
 h2 {
-	text-align: center;
-	margin-top: 20px;
-	margin-left: auto;
-	margin-right: auto;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 section {
-	padding-left: 5%;
-	padding-right: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
