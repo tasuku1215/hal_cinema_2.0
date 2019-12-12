@@ -195,4 +195,9 @@ class HomeController extends Controller
             'movies' => $movie,
         ]);
     }
+
+    public function access()
+    {
+        return view('web/access');
+    }
 }
