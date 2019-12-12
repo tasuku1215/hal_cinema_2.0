@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 //ホーム画面へ
 Route::get("/", "HomeController@showHome");
 Route::get('/access', 'HomeController@access');
+Route::get('/contact', 'HomeController@contact');
 
 // 一般ユーザー関連
 Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');

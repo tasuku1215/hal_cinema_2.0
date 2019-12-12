@@ -200,4 +200,9 @@ class HomeController extends Controller
     {
         return view('web/access');
     }
+
+    public function contact()
+    {
+        return view('web/contact');
+    }
 }
