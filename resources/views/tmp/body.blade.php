@@ -21,7 +21,7 @@
                     <li><a href="/">トップページ</a></li>
                     <li><a href="/roadshow">上映中作品</a></li>
                     <li><a href="/nextRoadshow">公開予定作品</a></li>
-                    <li><a href="/survey">アンケート</a></li>
+                    <li><a href="/enquete">アンケート</a></li>
                     <li><a href="/access">アクセス</a></li>
                     <li><a href="/contact">お問い合わせ</a></li>
                 </ul>
