@@ -4,11 +4,16 @@ use Illuminate\Support\Facades\Route;
 
 //ホーム画面へ
 Route::get("/", "HomeController@showHome");
+Route::get('/access', 'HomeController@access');
+Route::get('/contact', 'ContactController@contact');
+
+// お問い合わせ
+Route::post('/sendContact', 'ContactController@sendContact');
 
 // 一般ユーザー関連
 Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
-
+Route::get('/enquete', 'EnqueteController@enqueteEntry');
 
 // admin関連
 //ログイン・ログアウト

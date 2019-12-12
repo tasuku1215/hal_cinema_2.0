@@ -9,8 +9,13 @@ use App\Http\Controllers\Controller;
 use Psy\CodeCleaner\FunctionContextPass;
 use Symfony\Component\VarDumper\VarDumper;
 
-class HomeController extends Controller
+class EnqueteController extends Controller
 {
+    public function enqueteEntry()
+    {
+        return view("enquete");
+    }
+
     public function showHome()
     {
 
@@ -194,10 +199,5 @@ class HomeController extends Controller
             'dow' => $DoW,
             'movies' => $movie,
         ]);
-    }
-
-    public function access()
-    {
-        return view('web/access');
     }
 }
