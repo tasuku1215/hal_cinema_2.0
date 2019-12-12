@@ -4,11 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 //ホーム画面へ
 Route::get("/", "HomeController@showHome");
+Route::get('/access', 'HomeController@access');
 
 // 一般ユーザー関連
 Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
-
 
 // admin関連
 //ログイン・ログアウト

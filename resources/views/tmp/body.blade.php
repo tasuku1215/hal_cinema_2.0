@@ -18,12 +18,12 @@
         <div id="gloval-nav">
             <nav>
                 <ul id="navigation">
-                    <li><a href="/">トップページ</a></li>
-                    <li><a href="/roadshow">上映中作品</a></li>
-                    <li><a href="/nextRoadshow">公開予定作品</a></li>
-                    <li><a href="/survey">アンケート</a></li>
-                    <li><a href="/access">アクセス</a></li>
-                    <li><a href="/contact">お問い合わせ</a></li>
+                    <li><a href="/hal_cinema_2/public/">トップページ</a></li>
+                    <li><a href="/hal_cinema_2/public/roadshow">上映中作品</a></li>
+                    <li><a href="/hal_cinema_2/public/nextRoadshow">公開予定作品</a></li>
+                    <li><a href="/hal_cinema_2/public/survey">アンケート</a></li>
+                    <li><a href="/hal_cinema_2/public/access">アクセス</a></li>
+                    <li><a href="/hal_cinema_2/public/contact">お問い合わせ</a></li>
                 </ul>
             </nav>
         </div>
