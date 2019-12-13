@@ -171,7 +171,9 @@ class ShowController extends Controller
 
         $shows = $query->get();
 
-        dd($shows);
+        $assign['shows'] = $shows;
+
+        return view('schedule', $assign);
     }
 
 
