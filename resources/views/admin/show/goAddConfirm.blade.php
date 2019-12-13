@@ -16,13 +16,13 @@
 <div class="form-group">
 	<label for="screen_symbol">screen_symbol</label>
 	<select id="screen_symbol" class="form-control" disabled>
-		<option value="0" @if(isset($screen_symbol) && $screen_symbol == 0)selected @endif>スクリーン１</option>
-		<option value="1" @if(isset($screen_symbol) && $screen_symbol == 1)selected @endif>スクリーン２</option>
+		<option value="0" @if(isset($screen_symbol) && $screen_symbol==0)selected @endif>スクリーン１</option>
+		<option value="1" @if(isset($screen_symbol) && $screen_symbol==1)selected @endif>スクリーン２</option>
 	</select>
 </div>
 
 <div class="form-group">
-	<form action="/hal_cinema_2.0/public/admin/show/add" method="POST">
+	<form action="/hal_cinema_2/public/admin/show/add" method="POST">
 		@csrf
 		<input type="hidden" name="movie_id" value="{{ $movie_id }}">
 		<input type="hidden" name="start_datetime" value="{{ $start_datetime }}">
@@ -31,7 +31,7 @@
 		<input type="hidden" name="screen_symbol" value="{{ $screen_symbol }}">
 		<button type="submit" class="form-control btn btn-primary mt-2">この内容で登録</button>
 	</form>
-	<form action="/hal_cinema_2.0/public/admin/show/add/input" method="GET">
+	<form action="/hal_cinema_2/public/admin/show/add/input" method="GET">
 		<input type="hidden" name="movie_title" value="{{ $movie_title }}">
 		<input type="hidden" name="start_datetime" value="{{ $start_datetime_old }}">
 		<input type="hidden" name="cleaning_time" value="{{ $cleaning_time }}">

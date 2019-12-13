@@ -28,7 +28,7 @@
 }
 
 .mini-title {
-    max-width: 80%;
+    max-width: 85%;
     padding: 5px;
     font-size: 12pt;
     border: 1px solid maroon;
@@ -75,16 +75,14 @@
     text-align: center;
 }
 
-.date {
+.day {
+    width: 100%;
+    display: flex;
+}
+#date {
     width: 80%;
     margin: auto;
     text-align: center;
-}
-.date::before {
-    content: "〈";
-}
-.date::after {
-    content: "〉";
 }
 
 .movie {
@@ -114,6 +112,7 @@
 
 .flexbox {
     display: flex;
+    overflow: scroll;
 }
 
 .flexbox div {
