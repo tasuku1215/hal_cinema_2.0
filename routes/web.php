@@ -11,7 +11,7 @@ Route::get('/contact', 'ContactController@contact');
 Route::post('/sendContact', 'ContactController@sendContact');
 
 // 一般ユーザー関連
-Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
+Route::get('/show', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
 Route::get('/enquete', 'EnqueteController@enqueteEntry');
 
