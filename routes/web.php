@@ -42,6 +42,9 @@ Route::post('/admin/{showId}/update', 'ShowController@updatePerOnce');
 Route::get('/admin/{showId}/delete/confirm', 'ShowController@goDeleteConfirmPerOnce');
 Route::post('/admin/{showId}/delete', 'ShowController@deletePerOnce');
 
+Route::get('/admin/{showId}/tweet/input', 'ShowController@goTweet');
+Route::post('/admin/{showId}/tweet', 'ShowController@tweet');
+
 //料金ページ
 //一覧表示
 Route::get("/admin/price/showList", "priceController@showList");

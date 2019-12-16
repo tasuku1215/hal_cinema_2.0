@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\ShowService;
 use Carbon\Carbon;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class ShowController extends Controller
 {
@@ -451,5 +452,41 @@ class ShowController extends Controller
 
         // スケジュールTOPに戻ってflashMsgで通知
         return redirect('/admin/show')->with('flashMsg', 'スケジュールを削除しました。開始時刻:' . $deletedShow->start_datetime . ' スクリーン:' . ($deletedShow->screen_symbol + 1) . '番'); // どれを削除したのかを追記したい
+    }
+
+
+    /**
+     * 1回上映分の上映情報ツイート入力画面表示処理
+     * /admin/{showId}/tweet/input
+     */
+    public function goTweet(Request $request, int $showId)
+    {
+        $assign = [];
+        // 上映IDから映画タイトル、上映開始時間、上映時間をTextareaに表示
+        $query = $this->showsTable
+            ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
+            ->where('show_id', $showId);
+
+        $tweetShow = $query->first();
+
+        $assign['show'] = $tweetShow;
+
+        return view('admin.show.goTweet', $assign);
+    }
+
+
+    /**
+     * 1回上映分の上映情報ツイート処理
+     * /admin/{showId}/tweet
+     */
+    public function tweet(Request $request, int $showId)
+    {
+        dd($this->input);
+
+        // 上映ID:{showId}をツイートしました。
+
+        // ツイート処理
+
+        return redirect('/admin/show')->with('flashMsg', '上映ID:' . $showId . 'をツイートしました。');
     }
 }
