@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\ShowService;
+use Carbon\Carbon;
 
 class ShowController extends Controller
 {
@@ -151,23 +152,17 @@ class ShowController extends Controller
     {
         $assign = [];
 
-        // SELECT shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer, movies.actor, 
-        // movies.aired, movies.synopsis, movies.img_path, movies.url
-        // FROM shows
-        //     INNER JOIN movies ON movies.movie_id = shows.movie_id
-        // WHERE shows.start_datetime >= DATE_SUB(NOW(), INTERVAL 1 WEEK)
-        //     AND shows.status = 1
-        // GROUP BY shows.movie_id
-        // ORDER BY min_start_datetime ASC
+        //今日の日付
+        $today = Carbon::today();
+        $nextWeek = $today->addDay(7);
 
         $query = $this->showsTable
-            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
-                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->select(DB::raw('shows.movie_id, movies.movie_title, movies.screen_time,
+                                movies.actor, movies.img_path'))
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
-            ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')   // 何故か不等号の向きが逆になる
+            ->where('shows.start_datetime', '<=', $nextWeek)
             ->where('shows.status', 1)
-            ->groupBy('shows.movie_id')
-            ->orderBy('shows.min_start_datetime', 'ASC');
+            ->groupBy('shows.movie_id', 'movies.movie_title', 'movies.screen_time', 'movies.actor', 'movies.img_path');
 
         $shows = $query->get();
 
@@ -185,14 +180,16 @@ class ShowController extends Controller
     {
         $assign = [];
 
+        //今日の日付
+        $today = Carbon::today();
+
         $query = $this->showsTable
-            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
-                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->select(DB::raw('shows.movie_id, movies.movie_title, movies.screen_time,
+                                movies.actor, movies.img_path'))
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
-            ->where('shows.start_datetime', '<', 'NOW()')
+            ->where('shows.start_datetime', '>', $today)
             ->where('shows.status', 1)
-            ->groupBy('shows.movie_id')
-            ->orderBy('min_start_datetime', 'ASC');
+            ->groupBy('shows.movie_id', 'movies.movie_title', 'movies.screen_time', 'movies.actor', 'movies.img_path');
 
         $shows = $query->get();
 
