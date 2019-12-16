@@ -482,6 +482,13 @@ class ShowController extends Controller
     public function tweet(Request $request, int $showId)
     {
         // ツイート処理をここに。
+        $twitter = new TwitterOAuth(env('TWITTER_CLIENT_ID'),
+            env('TWITTER_CLIENT_SECRET'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN_SECRET'));
+        $twitter->post("statuses/update", [
+            "status" => $this->input['tweet']
+        ]);
 
         // DB更新
         $query = $this->showsTable
