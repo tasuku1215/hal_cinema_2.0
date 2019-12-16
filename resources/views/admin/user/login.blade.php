@@ -23,7 +23,8 @@
         <article>
             <h2>管理者画面ログイン</h2>
             <div>
-                <form action="/admin/user/login" method="post">
+                <form action="/hal_cinema_2/public/admin/user/login" method="post">
+                @csrf
                     <p>ログインID：</p>
                     <input type="text" name="login_id" id="login_id">
                     <br>

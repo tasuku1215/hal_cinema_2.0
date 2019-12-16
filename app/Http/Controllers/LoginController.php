@@ -25,12 +25,12 @@ class LoginController extends Controller
         $validationMsgs = [];
         $id = "";
         if (empty($admins)) {
-            $validationMsgs['error'] = "IDもしくはパウワードが間違ってます。";
+            $validationMsgs['error'] = "IDもしくはパスワードが間違ってます。";
         } else {
             $session = $request->session();
             $session->put("loginFlg", true);
             $session->put("id", $login_id);
-            return view("/admin/user/admin");
+            return redirect("admin/price/showList");
         }
     }
 
