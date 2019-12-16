@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 
 class MovieController extends Controller
 {
-    //料金一覧表示
+    //映画一覧表示
     public function showList()
     {
         $movie = DB::table('movies')
@@ -23,27 +23,29 @@ class MovieController extends Controller
     }
 
     /**
-     * レポート詳細画面表示処理
+     * 映画詳細情報画面表示処理
      */
     public function showDetail(int $movie_id, Request $request)
     {
         $templatePath = "admin/movie/movieDetail";
         $assign = [];
-        $db = DB::connection()->getPdo();
-        $movieDAO = new MovieDAO($db);
-        $movieDetail = $movieDAO->findByPK($movie_id);
+
+        $movieDetail = DB::table('movies')
+        ->where('movie_id',$movie_id)
+        ->first();
 
         if (empty($movieDetail)) {
-            $assign["errorMsg"] = "部門情報の取得に失敗しました。";
+            $assign["errorMsg"] = "映画情報の取得に失敗しました。";
             $templatePath = "error";
         } else {
             $assign["movie"] = $movieDetail;
         }
+
         return view($templatePath, $assign);
     }
 
 
-    //料金登録画面表示処理
+    //映画登録画面表示処理
     public function goAdd()
     {
         //return view("admin/price/priceAdd");
@@ -57,7 +59,7 @@ class MovieController extends Controller
         return view($templatePath, $assign);
     }
 
-    //料金登録処理
+    //映画情報登録処理
     public function add(Request $request)
     {
         //return view("admin/price/priceAdd");
@@ -99,7 +101,7 @@ class MovieController extends Controller
                 $assign["errorMsg"] = "情報登録に失敗しました。もう一度はじめからやり直してください。";
                 $templatePath = "error";
             } else {
-                move_uploaded_file($_FILES["addImgPath"]["tmp_name"], "../public/img/" . $_FILES["addImgPath"]["name"]);
+                move_uploaded_file($_FILES["addImgPath"]["tmp_name"], "../public/images/movies/" . $_FILES["addImgPath"]["name"]);
                 $isRedirect = true;
             }
         } else {
@@ -120,7 +122,7 @@ class MovieController extends Controller
         var_dump($movie);
     }
 
-    //料金更新画面表示処理
+    //映画情報更新画面表示処理
     public function prepareEdit(int $movie_id, Request $request)
     {
         $templatePath = "admin/movie/movieEdit";
@@ -137,7 +139,7 @@ class MovieController extends Controller
         return view($templatePath, $assign);
     }
 
-    //料金更新処理
+    //映画情報更新処理
     public function edit(Request $request)
     {
         $templatePath = "admin/movie/movieEdit";
@@ -176,7 +178,7 @@ class MovieController extends Controller
         if (empty($validationMsgs)) {
             $result = $movieDAO->update($movie);
             if ($result) {
-                move_uploaded_file($_FILES["editImgPath"]["tmp_name"], "../public/img/" . $_FILES["editImgPath"]["name"]);
+                move_uploaded_file($_FILES["editImgPath"]["tmp_name"], "../public/images/movies/" . $_FILES["editImgPath"]["name"]);
                 $isRedirect = true;
             } else {
                 $assign["errorMsg"] = "情報更新に失敗しました。もう一度はじめからやり直してください。";
@@ -199,7 +201,7 @@ class MovieController extends Controller
         return $response;
     }
 
-    //料金削除画面表示処理
+    //映画情報削除画面表示処理
     public function confirmDelete(int $movie_id, Request $request)
     {
         $templatePath = "admin/movie/movieConfirmDelete";
@@ -217,7 +219,7 @@ class MovieController extends Controller
         return view($templatePath, $assign);
     }
 
-    //料金削除処理
+    //映画情報削除処理
     public function delete(Request $request)
     {
         $templatePath = "error";

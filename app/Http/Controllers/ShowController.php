@@ -171,7 +171,9 @@ class ShowController extends Controller
 
         $shows = $query->get();
 
-        dd($shows);
+        $assign['shows'] = $shows;
+
+        return view('web.schedule', $assign);
     }
 
 
@@ -194,7 +196,9 @@ class ShowController extends Controller
 
         $shows = $query->get();
 
-        dd($shows);
+        $assign['shows'] = $shows;
+
+        return view('web.future_schedule', $assign);
     }
 
 
