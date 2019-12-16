@@ -18,7 +18,7 @@ class CreateEnqueteTable extends Migration
             $table->string('movie_name');
             $table->date('airing_date');
             $table->date('preferred_date');
-            $table->date('registration_time');
+            $table->dateTime('registration_time');
             $table->string('message');
             $table->timestamps();
         });

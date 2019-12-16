@@ -10,7 +10,8 @@
     <div id="container">
         <section>
             <h2>アンケート</h2>
-            <form action="">
+            <form action="/hal_cinema_2/public/sendEnquete" method="post">
+                @csrf
                 {{--                <div class="form-group">--}}
                 {{--                    <label for="">メールアドレス</label>--}}
                 {{--                    <input type="email" name="" id="" class="textbox form-control">--}}
@@ -41,11 +42,11 @@
                 {{--                <br>--}}
                 <div class="form-group">
                     <label for="">映画タイトル</label>
-                    <input type="text" name="movie" id="" class="textbox form-control">
+                    <input type="text" name="movieName" id="" class="textbox form-control">
                 </div>
                 <div class="form-group">
                     <label for="">アンケート内容</label>
-                    <textarea name="" id="" cols="30" rows="10" class="textbox form-control"></textarea>
+                    <textarea name="msg" id="" cols="30" rows="10" class="textbox form-control"></textarea>
                 </div>
                 <button type="submit" class="textbox form-control">送信する</button>
             </form>

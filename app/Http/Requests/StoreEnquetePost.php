@@ -24,16 +24,16 @@ class StoreEnquetePost extends FormRequest
     public function rules()
     {
         return [
-            'contactText' => 'required',
-            'contact-mail' => 'email',
+            'movieName' => 'required',
+//            'msg' => 'email',
         ];
     }
 
     public function messages()
     {
         return [
-            'contactText.required' => 'お問い合わせの内容を入力してください。',
-            'contact-mail.email' => 'メールアドレスを入力してください。',
+            'movieName.required' => '希望する映画名を入力してください。',
+//            'msg.email' => 'メールアドレスを入力してください。',
         ];
     }
 }
