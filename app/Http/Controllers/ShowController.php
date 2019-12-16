@@ -167,7 +167,7 @@ class ShowController extends Controller
             ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')   // 何故か不等号の向きが逆になる
             ->where('shows.status', 1)
             ->groupBy('shows.movie_id')
-            ->orderBy('min_start_datetime', 'ASC');
+            ->orderBy('shows.min_start_datetime', 'ASC');
 
         $shows = $query->get();
 

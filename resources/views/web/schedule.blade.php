@@ -1,21 +1,19 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>公開中映画一覧</title>
-</head>
-<body>
-<div>
+@extends('tmp/body')
+
+@section('title', '上映中')
+@section('css', '/hal_cinema_2/public/css/roadShow.css')
+@include('tmp/header')
+
+@section('content')
+<div id="container">
 	@foreach ($shows as $show)
-		<ul>
-			<li>{{ $show->img_path }}</li>
-			<li>{{ $show->movie_title }}</li>
-			<li>{{ $show->actor }}</li>
-			<li>{{ $show->screen_time }}</li>
-		</ul>
+	<ul>
+		<li>{{ $show->img_path }}</li>
+		<li>{{ $show->movie_title }}</li>
+		<li>{{ $show->actor }}</li>
+		<li>{{ $show->screen_time }}</li>
+	</ul>
 	@endforeach
 </div>
-</body>
-</html>
+
+@endsection
