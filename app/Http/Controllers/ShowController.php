@@ -481,11 +481,14 @@ class ShowController extends Controller
      */
     public function tweet(Request $request, int $showId)
     {
-        dd($this->input);
+        // ツイート処理をここに。
 
-        // 上映ID:{showId}をツイートしました。
-
-        // ツイート処理
+        // DB更新
+        $query = $this->showsTable
+            ->where('show_id', $showId)
+            ->update([
+                'tweeted' => 1
+            ]);
 
         return redirect('/admin/show')->with('flashMsg', '上映ID:' . $showId . 'をツイートしました。');
     }
