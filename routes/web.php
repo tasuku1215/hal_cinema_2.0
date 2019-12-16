@@ -14,6 +14,8 @@ Route::post('/sendContact', 'ContactController@sendContact');
 Route::get('/show', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
 Route::get('/enquete', 'EnqueteController@enqueteEntry');
+Route::post('/sendEnquete', 'EnqueteController@sendEnquete');
+
 
 // admin関連
 //ログイン・ログアウト
