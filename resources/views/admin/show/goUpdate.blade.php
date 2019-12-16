@@ -37,6 +37,7 @@
 	</div>
 	<button type="submit" class="form-control btn btn-primary mt-2">この内容で確認する</button>
 </form>
+<a href="/hal_cinema_2/public/admin/{{ $show_id }}/tweet/input" class="form-control btn btn-success mt-2">ツイートする</a>
 
 <a href="/hal_cinema_2/public/admin/{{ $show_id }}/delete/confirm" class="form-control btn btn-warning mt-2">削除する</a>
 

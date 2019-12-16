@@ -11,9 +11,11 @@ Route::get('/contact', 'ContactController@contact');
 Route::post('/sendContact', 'ContactController@sendContact');
 
 // 一般ユーザー関連
-Route::get('/show/this_week', 'ShowController@goTitlesPerThisWeek');
+Route::get('/show', 'ShowController@goTitlesPerThisWeek');
 Route::get('/show/future', 'ShowController@goTitlesInFuture');
 Route::get('/enquete', 'EnqueteController@enqueteEntry');
+Route::post('/sendEnquete', 'EnqueteController@sendEnquete');
+
 
 // admin関連
 //ログイン・ログアウト
@@ -39,6 +41,9 @@ Route::post('/admin/{showId}/update', 'ShowController@updatePerOnce');
 
 Route::get('/admin/{showId}/delete/confirm', 'ShowController@goDeleteConfirmPerOnce');
 Route::post('/admin/{showId}/delete', 'ShowController@deletePerOnce');
+
+Route::get('/admin/{showId}/tweet/input', 'ShowController@goTweet');
+Route::post('/admin/{showId}/tweet', 'ShowController@tweet');
 
 //料金ページ
 //一覧表示
