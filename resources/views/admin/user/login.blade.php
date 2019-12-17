@@ -29,11 +29,11 @@
                         @csrf
                         <div class="form-group">
                             <label for="login_id">ログインID：</label>
-                            <input type="text" name="login_id" id="login_id" class="form-control">
+                            <input type="text" name="login_id" id="login_id" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="password">パスワード：</label>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <button type="submit" name="submit" class="btn btn-primary">ログイン</button>

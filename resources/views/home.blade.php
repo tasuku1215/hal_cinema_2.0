@@ -97,7 +97,8 @@
                 movie.appendChild(mv_h3);
                 var mv_link = document.createElement("a");
                 mv_link.innerHTML = value.movie_title;
-                mv_link.href = "/hal_cinema_2/public/movie/" + key;
+                // mv_link.href = "/hal_cinema_2/public/movie/" + key;
+                mv_link.href = "#";
                 mv_h3.appendChild(mv_link);
 
                 var min = document.createElement("p");

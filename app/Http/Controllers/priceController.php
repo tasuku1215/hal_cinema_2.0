@@ -32,7 +32,7 @@ class PriceController extends Controller
         $assign = [];
         $db = DB::connection()->getPdo();
         $priceDAO = new PriceDAO($db);
-        $priceList= $priceDAO->findAll();
+        $priceList = $priceDAO->findAll();
         $assign["price"] = new Price();
         $assign["priceList"] = $priceList;
         return view($templatePath, $assign);
@@ -51,11 +51,11 @@ class PriceController extends Controller
         $addSdYear = $request->input("addSdYear");
         $addSdMonth = $request->input("addSdMonth");
         $addSdDay = $request->input("addSdDay");
-        $addStartDay = $addSdYear.'-'.$addSdMonth.'-'.$addSdDay;
+        $addStartDay = $addSdYear . '-' . $addSdMonth . '-' . $addSdDay;
         $addEdYear = $request->input("addEdYear");
         $addEdMonth = $request->input("addEdMonth");
         $addEdDay = $request->input("addEdDay");
-        $addEndDay = $addEdYear.'-'.$addEdMonth.'-'.$addEdDay;
+        $addEndDay = $addEdYear . '-' . $addEdMonth . '-' . $addEdDay;
 
         $price = new Price();
         $price->setName($addName);
@@ -70,17 +70,15 @@ class PriceController extends Controller
         if (!empty($priceDB)) {
             $validationMsgs[] = "その名称の料金はすでに登録されています。別のものを指定してください。";
         }
-        if(empty($validationMsgs)) {
+        if (empty($validationMsgs)) {
             $price_id = $priceDAO->insert($price);
-            if($price_id === -1) {
+            if ($price_id === -1) {
                 $assign["errorMsg"] = "情報登録に失敗しました。もう一度はじめからやり直してください。";
                 $templatePath = "error";
-            }
-            else {
+            } else {
                 $isRedirect = true;
             }
-        }
-        else{
+        } else {
             $assign["price"] = $price;
             $assign["validationMsgs"] = $validationMsgs;
         }
@@ -89,10 +87,9 @@ class PriceController extends Controller
 
         $assign["priceList"] = $priceList;
 
-        if($isRedirect) {
-            $response = redirect("/admin/price/showList")->with("flashMsg","料金ID" . $price_id . "で従業員情報を登録しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/price/showList")->with("flashMsg", "料金ID" . $price_id . "で従業員情報を登録しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;
@@ -107,11 +104,10 @@ class PriceController extends Controller
         $db = DB::connection()->getPdo();
         $priceDAO = new PriceDAO($db);
         $price = $priceDAO->findByPK($price_id);
-        if(empty($price)) {
+        if (empty($price)) {
             $assign["errorMsg"] = "料金情報の取得に失敗しました。";
             $templatePath = "error";
-        }
-        else {
+        } else {
             $assign["price"] = $price;
         }
         return view($templatePath, $assign);
@@ -120,7 +116,7 @@ class PriceController extends Controller
     //料金更新処理
     public function edit(Request $request)
     {
-        $templatePath="admin/price/priceEdit";
+        $templatePath = "admin/price/priceEdit";
         $isRedirect = false;
         $assign = [];
 
@@ -130,11 +126,11 @@ class PriceController extends Controller
         $editSdYear = $request->input("editSdYear");
         $editSdMonth = $request->input("editSdMonth");
         $editSdDay = $request->input("editSdDay");
-        $editStartDay = $editSdYear.'-'.$editSdMonth.'-'.$editSdDay;
+        $editStartDay = $editSdYear . '-' . $editSdMonth . '-' . $editSdDay;
         $editEdYear = $request->input("editEdYear");
         $editEdMonth = $request->input("editEdMonth");
         $editEdDay = $request->input("editEdDay");
-        $editEndDay = $editEdYear.'-'.$editEdMonth.'-'.$editEdDay;
+        $editEndDay = $editEdYear . '-' . $editEdMonth . '-' . $editEdDay;
 
         $price = new Price();
         $price->setId($editId);
@@ -147,20 +143,18 @@ class PriceController extends Controller
         $db = DB::connection()->getPdo();
         $priceDAO = new PriceDAO($db);
         $priceDB = $priceDAO->findByPriceName($price->getName());
-        if(!empty($priceDB) && $priceDB->getName() != $editName) {
+        if (!empty($priceDB) && $priceDB->getName() != $editName) {
             $validationMsgs[] = "その名称はすでに使われています。別のものを指定してください。";
         }
-        if(empty($validationMsgs)) {
+        if (empty($validationMsgs)) {
             $result = $priceDAO->update($price);
-            if($result) {
+            if ($result) {
                 $isRedirect = true;
-            }
-            else {
+            } else {
                 $assign["errorMsg"] = "情報更新に失敗しました。もう一度はじめからやり直してください。";
                 $templatePath = "error";
             }
-        }
-        else {
+        } else {
             $assign["price"] = $price;
             $assign["validationMsgs"] = $validationMsgs;
         }
@@ -168,10 +162,9 @@ class PriceController extends Controller
         $priceList = $priceDAO->findAll();
 
         $assign["priceList"] = $priceList;
-        if($isRedirect) {
-            $response = redirect("/admin/price/showList")->with("flashMsg","料金ID".$editId."の料金情報を更新しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/price/showList")->with("flashMsg", "料金ID" . $editId . "の料金情報を更新しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;
@@ -186,11 +179,10 @@ class PriceController extends Controller
         $db = DB::connection()->getPdo();
         $priceDAO = new PriceDAO($db);
         $price = $priceDAO->findByPK($price_id);
-        if(empty($price)) {
+        if (empty($price)) {
             $assign["errorMsg"] = "部門情報の取得に失敗しました。";
             $templatePath = "error";
-        }
-        else {
+        } else {
             $assign["price"] = $price;
         }
         return view($templatePath, $assign);
@@ -206,16 +198,14 @@ class PriceController extends Controller
         $db = DB::connection()->getPdo();
         $priceDAO = new PriceDAO($db);
         $result = $priceDAO->delete($deleteId);
-        if($result) {
+        if ($result) {
             $isRedirect = true;
-        }
-        else {
+        } else {
             $assign["errorMsg"] = "情報削除に失敗しました。もう一度はじめからやり直してください。";
         }
-        if($isRedirect) {
-            $response = redirect("/admin/price/showList")->with("flashMsg","料金ID".$deleteId."の料金情報を削除しました。");
-        }
-        else {
+        if ($isRedirect) {
+            $response = redirect("/admin/price/showList")->with("flashMsg", "料金ID" . $deleteId . "の料金情報を削除しました。");
+        } else {
             $response = view($templatePath, $assign);
         }
         return $response;
