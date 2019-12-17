@@ -31,6 +31,7 @@
     @endif
     <section>
     <div class="container">
+    <a href="/hal_cinema_2/public/admin/movie/showList">戻る</a>
         <table class="table">
             <tbody>
                 <tr>
@@ -79,7 +80,6 @@
                     <td>
                         <a href="/hal_cinema_2/public/admin/movie/prepareEdit/{{$movie->movie_id}}">編集</a>
                         <a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->movie_id}}">削除</a>
-                        <a href="/hal_cinema_2/public/admin/movie/showList">戻る</a>
                     </td>
                 </tr>
             </tbody>
