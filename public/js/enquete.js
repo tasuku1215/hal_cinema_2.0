@@ -84,7 +84,7 @@ $(document).ready(function () {
                 searchReload(arr);
                 stack = [];//一応stackを初期化
             }
-        }, 300);
+        }, 1500);
     });
 });
 // $(function () {
