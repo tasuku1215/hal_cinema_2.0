@@ -19,7 +19,7 @@ class CreateEnqueteTable extends Migration
             $table->date('airing_date');
             $table->date('preferred_date');
             $table->dateTime('registration_time');
-            $table->string('message');
+            $table->string('message')->nullable();
             $table->timestamps();
         });
     }

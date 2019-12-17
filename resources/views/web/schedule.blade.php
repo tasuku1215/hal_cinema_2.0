@@ -6,14 +6,25 @@
 
 @section('content')
 <div id="container">
-	@foreach ($shows as $show)
-	<ul>
-		<li>{{ $show->img_path }}</li>
-		<li>{{ $show->movie_title }}</li>
-		<li>{{ $show->actor }}</li>
-		<li>{{ $show->screen_time }}</li>
-	</ul>
-	@endforeach
+	<h2>上映中の映画</h2>
+	<article class="movie-list">
+		<ul>
+			@foreach ($shows as $show)
+			<li>
+				<section>
+					<!-- <a href="{{ $show->movie_id }}"> -->
+					<div class="movie-list-img" style="background-image: url('/hal_cinema_2/public/images/movies/{{ $show->img_path }}')">
+						<div class="hidden">{{ $show->movie_title }}</div>
+					</div>
+					<div>
+						<h3 class="title">{{ $show->movie_title }}</h3>
+						<p class="exp">[上映時間：{{ $show->screen_time }}min]　主演：{{ $show->actor }}</p>
+					</div>
+					<!-- </a> -->
+				</section>
+			</li>
+			@endforeach
+		</ul>
+	</article>
 </div>
-
 @endsection
