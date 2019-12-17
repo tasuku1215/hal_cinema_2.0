@@ -21,7 +21,7 @@
                     <li><a href="/hal_cinema_2/public/">トップページ</a></li>
                     <li><a href="/hal_cinema_2/public/show">上映中作品</a></li>
                     <li><a href="/hal_cinema_2/public/show/future">公開予定作品</a></li>
-                    <li><a href="/hal_cinema_2/public/survey">アンケート</a></li>
+                    <li><a href="/hal_cinema_2/public/enquete">アンケート</a></li>
                     <li><a href="/hal_cinema_2/public/access">アクセス</a></li>
                     <li><a href="/hal_cinema_2/public/contact">お問い合わせ</a></li>
                 </ul>
