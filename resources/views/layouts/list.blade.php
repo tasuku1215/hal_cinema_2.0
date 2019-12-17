@@ -49,6 +49,7 @@
 				<th>status</th>
 				<th>movie_title</th>
 				<th>screen_time</th>
+				<th>tweeted</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -62,6 +63,7 @@
 				<td>{{ $show->status }}</td>
 				<td>{{ $show->movie_title }}</td>
 				<td>{{ $show->screen_time }}</td>
+				<td>@if($show->tweeted == 0) <button class="btn btn-primary">Twitter未投稿</button> @else <button class="btn btn-success">Twitter投稿済</button> @endif</td>
 			</tr>
 			@endforeach
 		</tbody>

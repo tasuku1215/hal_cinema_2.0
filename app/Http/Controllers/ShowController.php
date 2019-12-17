@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Services\ShowService;
+use Carbon\Carbon;
+use Abraham\TwitterOAuth\TwitterOAuth;
 
 class ShowController extends Controller
 {
@@ -151,23 +153,17 @@ class ShowController extends Controller
     {
         $assign = [];
 
-        // SELECT shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer, movies.actor, 
-        // movies.aired, movies.synopsis, movies.img_path, movies.url
-        // FROM shows
-        //     INNER JOIN movies ON movies.movie_id = shows.movie_id
-        // WHERE shows.start_datetime >= DATE_SUB(NOW(), INTERVAL 1 WEEK)
-        //     AND shows.status = 1
-        // GROUP BY shows.movie_id
-        // ORDER BY min_start_datetime ASC
+        //今日の日付
+        $today = Carbon::today();
+        $nextWeek = $today->addDay(7);
 
         $query = $this->showsTable
-            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
-                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->select(DB::raw('shows.movie_id, movies.movie_title, movies.screen_time,
+                                movies.actor, movies.img_path'))
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
-            ->where('shows.start_datetime', '<=', 'DATE_SUB(NOW(), INTERVAL 1 WEEK)')   // 何故か不等号の向きが逆になる
+            ->where('shows.start_datetime', '<=', $nextWeek)
             ->where('shows.status', 1)
-            ->groupBy('shows.movie_id')
-            ->orderBy('min_start_datetime', 'ASC');
+            ->groupBy('shows.movie_id', 'movies.movie_title', 'movies.screen_time', 'movies.actor', 'movies.img_path');
 
         $shows = $query->get();
 
@@ -185,14 +181,16 @@ class ShowController extends Controller
     {
         $assign = [];
 
+        //今日の日付
+        $today = Carbon::today();
+
         $query = $this->showsTable
-            ->select(DB::raw('shows.movie_id, movies.movie_title, MIN(shows.start_datetime) AS min_start_datetime, movies.screen_time, movies.directer,
-                                movies.actor, movies.aired, movies.synopsis, movies.img_path, movies.url'))
+            ->select(DB::raw('shows.movie_id, movies.movie_title, movies.screen_time,
+                                movies.actor, movies.img_path'))
             ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
-            ->where('shows.start_datetime', '<', 'NOW()')
+            ->where('shows.start_datetime', '>', $today)
             ->where('shows.status', 1)
-            ->groupBy('shows.movie_id')
-            ->orderBy('min_start_datetime', 'ASC');
+            ->groupBy('shows.movie_id', 'movies.movie_title', 'movies.screen_time', 'movies.actor', 'movies.img_path');
 
         $shows = $query->get();
 
@@ -454,5 +452,51 @@ class ShowController extends Controller
 
         // スケジュールTOPに戻ってflashMsgで通知
         return redirect('/admin/show')->with('flashMsg', 'スケジュールを削除しました。開始時刻:' . $deletedShow->start_datetime . ' スクリーン:' . ($deletedShow->screen_symbol + 1) . '番'); // どれを削除したのかを追記したい
+    }
+
+
+    /**
+     * 1回上映分の上映情報ツイート入力画面表示処理
+     * /admin/{showId}/tweet/input
+     */
+    public function goTweet(Request $request, int $showId)
+    {
+        $assign = [];
+        // 上映IDから映画タイトル、上映開始時間、上映時間をTextareaに表示
+        $query = $this->showsTable
+            ->join('movies', 'shows.movie_id', '=', 'movies.movie_id')
+            ->where('show_id', $showId);
+
+        $tweetShow = $query->first();
+
+        $assign['show'] = $tweetShow;
+
+        return view('admin.show.goTweet', $assign);
+    }
+
+
+    /**
+     * 1回上映分の上映情報ツイート処理
+     * /admin/{showId}/tweet
+     */
+    public function tweet(Request $request, int $showId)
+    {
+        // ツイート処理をここに。
+        $twitter = new TwitterOAuth(env('TWITTER_CLIENT_ID'),
+            env('TWITTER_CLIENT_SECRET'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN'),
+            env('TWITTER_CLIENT_ID_ACCESS_TOKEN_SECRET'));
+        $twitter->post("statuses/update", [
+            "status" => $this->input['tweet']
+        ]);
+
+        // DB更新
+        $query = $this->showsTable
+            ->where('show_id', $showId)
+            ->update([
+                'tweeted' => 1
+            ]);
+
+        return redirect('/admin/show')->with('flashMsg', '上映ID:' . $showId . 'をツイートしました。');
     }
 }
