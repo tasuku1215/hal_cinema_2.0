@@ -31,19 +31,16 @@
     @endif
     <section>
     <div class="container">
+    <a href="/hal_cinema_2/public/admin/movie/showList">戻る</a>
         <table class="table">
             <tbody>
-                <tr>
-                    <th>映画ID</th>
-                    <td>{{$movie->movie_id}}</td>
-                </tr>
                 <tr>
                     <th>タイトル</th>
                     <td>{{$movie->movie_title}}</td>
                 </tr>
                 <tr>
                     <th>上映時間</th>
-                    <td>{{$movie->screen_time}}</td>
+                    <td>{{$movie->screen_time}}分</td>
                 </tr>
                 <tr>
                     <th>監督</th>
@@ -59,11 +56,11 @@
                 </tr>
                 <tr>
                     <th>キャッチコピー</th>
-                    <td><textarea readonly>{{$movie->catchcopy}}</textarea></td>
+                    <td><textarea readonly cols="80">{{$movie->catchcopy}}</textarea></td>
                 </tr>
                 <tr>
                     <th>あらすじ</th>
-                    <td><textarea readonly>{{$movie->synopsis}}</textarea></td>
+                    <td><textarea readonly cols="80">{{$movie->synopsis}}</textarea></td>
                 </tr>
 
                 <tr>
@@ -78,8 +75,7 @@
                     <th>操作</th>
                     <td>
                         <a href="/hal_cinema_2/public/admin/movie/prepareEdit/{{$movie->movie_id}}">編集</a>
-                        <a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->movie_id}}">削除</a>
-                        <a href="/hal_cinema_2/public/admin/movie/showList">戻る</a>
+                        <!--<a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->movie_id}}">削除</a>-->
                     </td>
                 </tr>
             </tbody>

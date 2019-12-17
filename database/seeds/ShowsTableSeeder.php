@@ -659,7 +659,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/17 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '8',
+                'movie_id' => '5',
                 'admin_id' => '1',
             ],
             [
@@ -679,7 +679,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/17 15:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '7',
+                'movie_id' => '3',
                 'admin_id' => '1',
             ],
             [
@@ -709,7 +709,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/18 14:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '5',
                 'admin_id' => '1',
             ],
             [
@@ -719,7 +719,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/18 15:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '2',
                 'admin_id' => '1',
             ],
             [
@@ -729,7 +729,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/18 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '7',
+                'movie_id' => '3',
                 'admin_id' => '1',
             ],
             [
@@ -749,7 +749,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/19 14:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '8',
+                'movie_id' => '1',
                 'admin_id' => '1',
             ],
             [
@@ -769,7 +769,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/19 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '5',
                 'admin_id' => '1',
             ],
             [
@@ -799,7 +799,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/20 15:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '7',
+                'movie_id' => '4',
                 'admin_id' => '1',
             ],
             [
@@ -809,7 +809,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/20 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '7',
+                'movie_id' => '1',
                 'admin_id' => '1',
             ],
             [
@@ -819,7 +819,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/21 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '8',
+                'movie_id' => '3',
                 'admin_id' => '1',
             ],
             [
@@ -859,7 +859,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/22 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '3',
                 'admin_id' => '1',
             ],
             [
@@ -879,7 +879,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/22 15:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '10',
+                'movie_id' => '1',
                 'admin_id' => '1',
             ],
             [
@@ -899,7 +899,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/23 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '10',
+                'movie_id' => '1',
                 'admin_id' => '1',
             ],
             [
@@ -909,7 +909,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/23 14:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '3',
                 'admin_id' => '1',
             ],
             [
@@ -929,7 +929,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/23 17:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '1',
                 'admin_id' => '1',
             ],
             [
@@ -949,7 +949,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/24 14:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '9',
+                'movie_id' => '2',
                 'admin_id' => '1',
             ],
             [
@@ -959,7 +959,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/24 15:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '7',
+                'movie_id' => '4',
                 'admin_id' => '1',
             ],
             [
@@ -989,7 +989,7 @@ class ShowsTableSeeder extends Seeder
                 'end_datetime' => '2019/12/25 14:00:00',
                 'cleaning_time' => '15',
                 'status' => '1',
-                'movie_id' => '8',
+                'movie_id' => '5',
                 'admin_id' => '1',
             ],
             [

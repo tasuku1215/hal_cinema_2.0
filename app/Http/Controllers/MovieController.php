@@ -31,8 +31,8 @@ class MovieController extends Controller
         $assign = [];
 
         $movieDetail = DB::table('movies')
-        ->where('movie_id',$movie_id)
-        ->first();
+            ->where('movie_id', $movie_id)
+            ->first();
 
         if (empty($movieDetail)) {
             $assign["errorMsg"] = "映画情報の取得に失敗しました。";
