@@ -30,7 +30,7 @@ class LoginController extends Controller
             $session = $request->session();
             $session->put("loginFlg", true);
             $session->put("id", $login_id);
-            return redirect("admin/price/showList");
+            return redirect("admin/show");
         }
     }
 
