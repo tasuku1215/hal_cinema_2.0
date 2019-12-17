@@ -24,8 +24,6 @@
 
 {{--<script type="text/javascript" src="/hal_cinema_2/public/js/Jquery.mysuggest.js"></script>--}}
 {{--<link rel="stylesheet" href="/hal_cinema_2/public/css/mysuggest.css" type="text/css">--}}
-<script type="text/javascript" src="/hal_cinema_2/public/js/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="/hal_cinema_2/public/css/jquery-ui.min.css" type="text/css">
 
 <title>@yield('title')</title>
 @endsection
