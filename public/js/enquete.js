@@ -24,7 +24,7 @@ function movieSearch() {
         // console.log(response.results[0].original_title);
         response.results.forEach(function (data) {
             // console.log(data.original_title);
-            movies.push(data.original_title);
+            movies.push(data.title);
         });
         // movies = response;
         console.log(response);
