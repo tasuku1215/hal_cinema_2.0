@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>映画情報詳細　｜　映画情報管理</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
@@ -14,7 +15,7 @@
         <ul>
             <li><a href="/hal_cinema_2/public/">TOP</a></li>
             <li><a href="/hal_cinema_2/public/admin/movie/showList">映画情報リスト</a></li>
-            <li>料金情報詳細</li>
+            <li>映画情報詳細</li>
         </ul>
     </nav>
     @if(session("flashMsg"))
@@ -23,7 +24,8 @@
     </section>
     @endif
     <section>
-        <table border=1px>
+    <div class="container">
+        <table class="table">
             <tbody>
                 <tr>
                     <th>映画ID</th>
@@ -75,6 +77,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </section>
 </body>
 
