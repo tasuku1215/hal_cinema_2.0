@@ -9,15 +9,21 @@
 
 <body>
     <header>
-        <h1>映画情報詳細</h1>
-    </header>
-    <nav id="breadcrumbs">
-        <ul>
-            <li><a href="/hal_cinema_2/public/">TOP</a></li>
-            <li><a href="/hal_cinema_2/public/admin/movie/showList">映画情報リスト</a></li>
-            <li>映画情報詳細</li>
-        </ul>
-    </nav>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/hal_cinema_2/public/admin/show">HAL Cinema管理画面</a>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/hal_cinema_2/public/admin/show">上映スケジュール一覧</a>
+				</li>
+				<li class="nav-item active">
+					<span class="nav-link">映画一覧</span>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/hal_cinema_2/public/admin/price/showList">料金一覧</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
     @if(session("flashMsg"))
     <section id="flashMsg">
         <p>{{session("flashMsg")}}</p>
@@ -73,6 +79,7 @@
                     <td>
                         <a href="/hal_cinema_2/public/admin/movie/prepareEdit/{{$movie->movie_id}}">編集</a>
                         <a href="/hal_cinema_2/public/admin/movie/confirmDelete/{{$movie->movie_id}}">削除</a>
+                        <a href="/hal_cinema_2/public/admin/movie/showList">戻る</a>
                     </td>
                 </tr>
             </tbody>

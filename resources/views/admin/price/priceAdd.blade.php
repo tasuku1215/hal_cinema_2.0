@@ -9,15 +9,21 @@
 
 <body>
     <header>
-        <h1>料金情報追加</h1>
-    </header>
-    <nav id="breadcrumbs">
-        <ul>
-            <li><a href="/hal_cinema_2/public/">TOP</a></li>
-            <li><a href="/hal_cinema_2/public/admin/price/showList">料金情報リスト</a></li>
-            <li>料金情報追加</li>
-        </ul>
-    </nav>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/hal_cinema_2/public/admin/show">HAL Cinema管理画面</a>
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/hal_cinema_2/public/admin/show">上映スケジュール一覧</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/hal_cinema_2/public/admin/movie/showList">映画一覧</a>
+				</li>
+				<li class="nav-item">
+					<span class="nav-link active">料金一覧</span>
+				</li>
+			</ul>
+		</nav>
+	</header>
     @isset($validationMsgs)
     <section id="errorMsg">
         <p>以下のメッセージをご確認ください。</p>
@@ -34,14 +40,17 @@
         </p>
         <form action="/hal_cinema_2/public/admin/price/add" method="post" class="box">
             @csrf
-            <label for="addName">
-                料金名&nbsp;<span class="required">必須</span>
-                <input type="text" id="addName" name="addName" value="{{$price->getName()}}" required>
-            </label><br>
-            <label for="addPrice">
-                価格&nbsp;<span class="required">必須</span>
-                <input type="number" id="addPrice" name="addPrice" value="{{$price->getPrice()}}" required>
-            </label><br>
+            <div class="form-group">
+                <label for="addName">料金名&nbsp;<span class="required">必須</span></label>
+                <input type="text" id="addName" name="addName" value="{{$price->getName()}}" required class="form-control">
+                <br>
+            </div>
+
+            <div class="form-group">
+                <label for="addPrice">価格&nbsp;<span class="required">必須</span></label>
+                <input type="number" id="addPrice" name="addPrice" value="{{$price->getPrice()}}" required class="form-control">
+                <br>
+            </div>
             <label for="addStartDay">
                 開始日&nbsp;<span class="required">必須</span>
                 <select name="addSdYear" id="addSdYear" required>
@@ -80,6 +89,7 @@
                         @endfor
                 </select>日
             </label><br>
+            
             <label for="addEndDay">
                 終了日&nbsp;<span class="required">必須</span>
                 <select name="addEdYear" id="addEdYear" required>
@@ -118,7 +128,10 @@
                         @endfor
                 </select>日
             </label><br>
-            <button type="submit">登録</button>
+            <div class="text-right">
+                <a href="/hal_cinema_2/public/admin/price/showList"><button type="button">戻る</button></a>
+                <button type="submit">登録</button>
+            </div>
         </form>
     </section>
 </body>
